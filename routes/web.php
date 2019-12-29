@@ -16,15 +16,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/resturants', function() {
-    $resturants = Resturant::all();
+Route::post('newresturant', function() {
+    $resturant = new Resturant;
 
-    foreach($resturants as $resturant) {
-        return response()->json([
-            'name' => $resturant->name,
-            'location' => $resturant->location,
-            'rating' => $resturant->rating,
-        ]);
-    }
+    $resturant->name = "name";
+    $resturant->location = "location";
+    $resturant->save();
 });
 

@@ -1,0 +1,20 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Malmö Resturant Api",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/resturants": {
+            "get": {
+                "description": "Get all Resturants",
+                "operationId": "App\\Http\\Controllers\\Resturants::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Resturants"
+                    }
+                }
+            }
+        }
+    }
+}
