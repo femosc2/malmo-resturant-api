@@ -14,7 +14,7 @@ class AddResturantColumnToResturantTable extends Migration
     public function up()
     {
         Schema::table('resturants', function (Blueprint $table) {
-          $table->float('rating')->nullable;
+          $table->float('rating')->nullable();
         });
     }
 

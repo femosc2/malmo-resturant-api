@@ -15,6 +15,39 @@
                     }
                 }
             }
+        },
+        "/api/resturants/new": {
+            "post": {
+                "description": "Create a new resturant",
+                "operationId": "App\\Http\\Controllers\\Resturants::create",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of Resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "description": "Location of Resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new resturant"
+                    }
+                }
+            }
         }
     }
 }

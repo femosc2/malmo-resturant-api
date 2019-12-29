@@ -41,9 +41,43 @@ class Resturants extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+
+     /**
+     * @OA\Post(
+     *     path="/api/resturants/new",
+     *     description="Create a new resturant",
+     *     @OA\Response(response="default", description="Create a new resturant"),
+     * @OA\Parameter(
+     *         description="Name of Resturant",
+     *         name="name",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="file"
+     *         ),
+     *     ),
+     * @OA\Parameter(
+     *         description="Location of Resturant",
+     *         name="location",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="file"
+     *         ),
+     *     ),
+     * )
+     */
+    public function create(Request $request)
     {
-        //
+        $resturant = new Resturant;
+
+        $resturant->name = $request->input('name');
+
+        $resturant->location = $request->input('location');
+
+        $resturant->save();
     }
 
     /**
