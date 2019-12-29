@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Resturant;
+use App\Item;
 
-class Resturants extends Controller
+class ResturantsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -74,7 +75,6 @@ class Resturants extends Controller
         $resturant = new Resturant;
 
         $resturant->name = $request->input('name');
-
         $resturant->location = $request->input('location');
 
         $resturant->save();
@@ -97,9 +97,26 @@ class Resturants extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    /** @OA\Get(
+        *     path="/api/resturants/{id}",
+        *     description="Get a specific resturant",
+        *     @OA\Response(response="default", description="Get a specific resturant"),
+        * @OA\Parameter(
+        *         description="Id of resturant",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+    public function show(Request $id)
     {
-        //
+        return Resturant::find($id);
     }
 
     /**
