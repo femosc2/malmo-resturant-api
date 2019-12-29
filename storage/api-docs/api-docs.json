@@ -5,10 +5,97 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/items": {
+            "get": {
+                "description": "Get all Items",
+                "operationId": "App\\Http\\Controllers\\ItemsController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Items"
+                    }
+                }
+            }
+        },
+        "/api/items/new": {
+            "post": {
+                "description": "Create a new Item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::create",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of Item",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type of Item",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Price of Item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "resturant_id",
+                        "in": "query",
+                        "description": "Id of Resturant it belongs to.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new resturant"
+                    }
+                }
+            }
+        },
+        "/api/items/{id}": {
+            "get": {
+                "description": "Get a specific item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific item"
+                    }
+                }
+            }
+        },
         "/api/resturants": {
             "get": {
                 "description": "Get all Resturants",
-                "operationId": "App\\Http\\Controllers\\Resturants::index",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::index",
                 "responses": {
                     "default": {
                         "description": "Get all Resturants"
@@ -19,7 +106,7 @@
         "/api/resturants/new": {
             "post": {
                 "description": "Create a new resturant",
-                "operationId": "App\\Http\\Controllers\\Resturants::create",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::create",
                 "parameters": [
                     {
                         "name": "name",
@@ -45,6 +132,29 @@
                 "responses": {
                     "default": {
                         "description": "Create a new resturant"
+                    }
+                }
+            }
+        },
+        "/api/resturants/{id}": {
+            "get": {
+                "description": "Get a specific resturant",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific resturant"
                     }
                 }
             }
