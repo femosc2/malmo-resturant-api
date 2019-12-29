@@ -1,5 +1,6 @@
 <?php
 
+use App\Resturant;
 use Illuminate\Http\Request;
 
 /*
@@ -16,3 +17,19 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware('auth:api')->get('/resturants', function() {
+    $resturants = Resturant::all();
+    foreach($resturants as $resturant) {
+        return $resturant->name;
+    }
+});
+
+
+Route::middleware('auth:api')->get('/resturants', function (Request $request) {
+    return $request->$resturants = Resturant::all();
+    foreach($resturants as $resturant) {
+        return $resturant->name;
+    };
+});
+

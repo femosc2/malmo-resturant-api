@@ -1,5 +1,6 @@
 <?php
 
+use App\Resturant;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,3 +15,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/resturants', function() {
+    $resturants = Resturant::all();
+
+    foreach($resturants as $resturant) {
+        return response()->json([
+            'name' => $resturant->name,
+            'location' => $resturant->location,
+            'rating' => $resturant->rating,
+        ]);
+    }
+});
+
