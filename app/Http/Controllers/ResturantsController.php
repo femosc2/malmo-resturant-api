@@ -33,6 +33,8 @@ class ResturantsController extends Controller
                         'name' => $resturant->name,
                         'location' => $resturant->location,
                         'rating' => $resturant->rating,
+                        'reports' => $resturant->reports,
+                        'is_bad' => $resturant->is_bad,
                         ]);
             }
             return $jsonResponse;
@@ -186,4 +188,88 @@ class ResturantsController extends Controller
     {
         //
     }
+
+    /** @OA\Put(
+        *     path="/api/resturants/report/{id}",
+        *     description="Report a Resturant",
+        *     tags={"Resturants"},
+        *     @OA\Response(response="default", description="Report a Resturant"),
+        * @OA\Parameter(
+        *         description="Id of Resturant",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function report(Request $request)
+        {
+            $resturant = Resturant::find($request->id);
+            $resturant->reports++;
+
+            if($resturant->reports > 20) {
+                $resturant->is_bad = true;
+            }
+
+            $resturant->update();
+
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'reports' => $resturant->reports,
+                'is_bad' => $resturant->is_bad,
+            ]);
+
+            return $jsonResponse;
+        }
+
+
+        /** @OA\Put(
+            *     path="/api/resturants/unreport/{id}",
+            *     description="unreport a Resturant",
+            *     tags={"Resturants"},
+            *     @OA\Response(response="default", description="unreport a Resturant"),
+            * @OA\Parameter(
+            *         description="Id of resturant",
+            *         name="id",
+            *         in="query",
+            *         required=true,
+            *         @OA\Schema(
+            *             type="integer",
+            *             format="file"
+            *         ),
+            *     ),
+            * )
+            */
+        public function unreport(Request $request)
+        {
+            $resturant = Resturant::find($request->id);
+
+            if(!$resturant->reports <= 0) {
+                $resturant->reports--;
+            } else {
+                return abort(400, 'This resturant does not have any reports');
+            }
+
+            if($resturant->reports <= 20) {
+                $resturant->is_bad = false;
+            }
+
+            $resturant->update();
+
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'reports' => $resturant->reports,
+                'is_bad' => $resturant->is_bad,
+            ]);
+
+            return $jsonResponse;
+        }
+
+
 }

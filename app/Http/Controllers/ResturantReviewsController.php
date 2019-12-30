@@ -26,7 +26,7 @@ class ResturantReviewsController extends Controller
 
     public function index()
     {
-        $resturant_review = ResturantReview::all();
+        $resturant_reviews = ResturantReview::all();
 
         $jsonResponse = [];
 
@@ -38,6 +38,8 @@ class ResturantReviewsController extends Controller
                     'rating' => $resturant_review->rating,
                     'resturant_id' => $resturant_review->resturant_id,
                     'resturant' => $resturant_name,
+                    'reports' => $resturant_review->reports,
+                    'is_bad' => $returant_review->is_bad,
                     ]);
         }
 
@@ -103,19 +105,19 @@ class ResturantReviewsController extends Controller
         if(strlen($resturant_review->reviewer) > 30 || $resturant_review->rating > 10 || $resturant_review->rating < 0) {
             return abort(400, 'Name can not be longer than 30 characters and rating can not be higher than 10 or lower than 0');
         } else {
-        $resturant_review->save();
+            $resturant_review->save();
 
-        $resturant_reviews = ResturantReview::where('resturant_id', $resturant_review->resturant_id)->get();
-        $resturant_rating = 0;
-        foreach($resturant_reviews as $resturant_review) {
-            $resturant_rating = $resturant_rating + $resturant_review->rating;
-        }
-        $resturant_rating = $resturant_rating/sizeof($resturant_reviews);
-        $resturant = Resturant::find($resturant_review->resturant_id);
-        $resturant->rating = $resturant_rating;
-        $resturant->update();
+            $resturant_reviews = ResturantReview::where('resturant_id', $resturant_review->resturant_id)->get();
+            $resturant_rating = 0;
+            foreach($resturant_reviews as $resturant_review) {
+                $resturant_rating = $resturant_rating + $resturant_review->rating;
+            }
+            $resturant_rating = $resturant_rating/sizeof($resturant_reviews);
+            $resturant = Resturant::find($resturant_review->resturant_id);
+            $resturant->rating = $resturant_rating;
+            $resturant->update();
 
-        $jsonResponse = [];
+            $jsonResponse = [];
 
         array_push($jsonResponse, [
             'reviwer' => $resturant_review->reviewer,
@@ -175,6 +177,8 @@ class ResturantReviewsController extends Controller
                 'rating' => $resturant_review->rating,
                 'resturant_id' => $resturant_review->resturant_id,
                 'resturant' => $resturant_name,
+                'reports' => $resturant_review->reports,
+                'is_bad' => $returant_review->is_bad,
                 ]);
 
         return $jsonResponse;
@@ -213,4 +217,86 @@ class ResturantReviewsController extends Controller
     {
         //
     }
+
+    /** @OA\Put(
+        *     path="/api/resturantreviews/report/{id}",
+        *     description="Report a Resturant Review",
+        *     tags={"Resturant Reviews"},
+        *     @OA\Response(response="default", description="Report an item"),
+        * @OA\Parameter(
+        *         description="Id of Resturant Review",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function report(Request $request)
+        {
+            $resturant_review = ResturantReview::find($request->id);
+
+            if(!$resturant_review->reports <= 0) {
+                $resturant_review->reports++;
+            };
+
+            if($resturant_review->reports > 20) {
+                $resturant_review->is_bad = true;
+            }
+
+            $resturant_review->update();
+
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'reports' => $resturant_review->reports,
+                'is_bad' => $resturant_review->is_bad,
+            ]);
+
+            return $jsonResponse;
+        }
+
+
+        /** @OA\Put(
+            *     path="/api/resturantreviews/unreport/{id}",
+            *     description="unreport an Resturant Review",
+            *     tags={"Resturant Reviews"},
+            *     @OA\Response(response="default", description="unreport an Resturant Review"),
+            * @OA\Parameter(
+            *         description="Id of item",
+            *         name="id",
+            *         in="query",
+            *         required=true,
+            *         @OA\Schema(
+            *             type="integer",
+            *             format="file"
+            *         ),
+            *     ),
+            * )
+            */
+        public function unreport(Request $request)
+        {
+            $resturant_review = ResturantReview::find($request->id);
+            $resturant_review->reports--;
+
+            if($resturant_review->reports <= 20) {
+                $resturant_review->is_bad = false;
+            } else {
+                return abort(400, 'This review does not have any reports');
+            }
+
+            $resturant_review->update();
+
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'reports' => $resturant_review->reports,
+                'is_bad' => $resturant_review->is_bad,
+            ]);
+
+            return $jsonResponse;
+        }
 }
