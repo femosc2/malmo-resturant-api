@@ -5,6 +5,93 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/itemreviews": {
+            "get": {
+                "description": "Get all Item Reviews",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Item Reviews"
+                    }
+                }
+            }
+        },
+        "/api/itemreviews/new": {
+            "post": {
+                "description": "Create a new Item Review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::create",
+                "parameters": [
+                    {
+                        "name": "reviewer",
+                        "in": "query",
+                        "description": "Name of Reviewer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "rating",
+                        "in": "query",
+                        "description": "Rating of Item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "review",
+                        "in": "query",
+                        "description": "Review of Item",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "query",
+                        "description": "Id of Item it belongs to.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new Item Review"
+                    }
+                }
+            }
+        },
+        "/api/itemreviews/{id}": {
+            "get": {
+                "description": "Get a specific item review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific item review"
+                    }
+                }
+            }
+        },
         "/api/items": {
             "get": {
                 "description": "Get all Items",

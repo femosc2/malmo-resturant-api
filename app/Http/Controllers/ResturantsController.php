@@ -78,6 +78,15 @@ class ResturantsController extends Controller
         $resturant->location = $request->input('location');
 
         $resturant->save();
+
+        $jsonResponse = [];
+
+        array_push($jsonResponse, [
+            'name' => $resturant->name,
+            'location' => $resturant->location,
+            ]);
+
+        return $jsonResponse;
     }
 
     /**
@@ -114,9 +123,19 @@ class ResturantsController extends Controller
         *     ),
         * )
         */
-    public function show(Request $id)
+    public function show(Request $request)
     {
-        return Resturant::find($id);
+
+        $resturant = Resturant::find($request->id);
+        $jsonResponse = [];
+
+        array_push($jsonResponse, [
+            'name' => $resturant->name,
+            'location' => $resturant->location,
+            'rating' => $resturant->rating,
+            ]);
+
+        return $jsonResponse;
     }
 
     /**

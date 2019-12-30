@@ -1,6 +1,5 @@
 <?php
 
-use App\Resturant;
 use Illuminate\Http\Request;
 
 Route::get('/resturants', 'ResturantsController@index');
@@ -9,3 +8,6 @@ Route::post('/resturants/new', 'ResturantsController@create');
 Route::post('/items/new', 'ItemsController@create');
 Route::get('/items/{id}', 'ItemsController@show');
 Route::get('/items', 'ItemsController@index');
+Route::post('/itemreviews/new', 'ItemReviewsController@create');
+Route::get('/itemreviews', 'ItemReviewsController@index');
+Route::get('/itemreviews/{id}', 'ItemReviewsController@show');
