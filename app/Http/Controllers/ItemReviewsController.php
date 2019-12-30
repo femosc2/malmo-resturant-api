@@ -18,6 +18,7 @@ class ItemReviewsController extends Controller
       /**
      * @OA\Get(
      *     path="/api/itemreviews",
+     *     tags={"Item Reviews"},
      *     description="Get all Item Reviews",
      *     @OA\Response(response="default", description="Get all Item Reviews")
      * )
@@ -48,6 +49,7 @@ class ItemReviewsController extends Controller
     /** @OA\Post(
      *     path="/api/itemreviews/new",
      *     description="Create a new Item Review",
+     *     tags={"Item Reviews"},
      *     @OA\Response(response="default", description="Create a new Item Review"),
      * @OA\Parameter(
      *         description="Name of Reviewer",
@@ -142,6 +144,7 @@ class ItemReviewsController extends Controller
      /** @OA\Get(
         *     path="/api/itemreviews/{id}",
         *     description="Get a specific item review",
+        *     tags={"Item Reviews"},
         *     @OA\Response(response="default", description="Get a specific item review"),
         * @OA\Parameter(
         *         description="Id of item review",

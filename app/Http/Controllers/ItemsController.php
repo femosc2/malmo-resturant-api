@@ -18,6 +18,7 @@ class ItemsController extends Controller
      * @OA\Get(
      *     path="/api/items",
      *     description="Get all Items",
+     *     tags={"Items"},
      *     @OA\Response(response="default", description="Get all Items")
      * )
      */
@@ -48,6 +49,7 @@ class ItemsController extends Controller
 
      /** @OA\Post(
      *     path="/api/items/new",
+     *     tags={"Items"},
      *     description="Create a new Item",
      *     @OA\Response(response="default", description="Create a new resturant"),
      * @OA\Parameter(
@@ -136,6 +138,7 @@ class ItemsController extends Controller
      /** @OA\Get(
         *     path="/api/items/{id}",
         *     description="Get a specific item",
+        *     tags={"Items"},
         *     @OA\Response(response="default", description="Get a specific item"),
         * @OA\Parameter(
         *         description="Id of item",

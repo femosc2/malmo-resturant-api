@@ -18,6 +18,7 @@ class ResturantReviewsController extends Controller
       /**
      * @OA\Get(
      *     path="/api/resturantreviews",
+     *     tags={"Resturant Reviews"},
      *     description="Get all Resturant Reviews",
      *     @OA\Response(response="default", description="Get all Resturant Reviews")
      * )
@@ -45,6 +46,7 @@ class ResturantReviewsController extends Controller
 
     /** @OA\Post(
      *     path="/api/resturantreviews/new",
+     *     tags={"Resturant Reviews"},
      *     description="Create a new Resturant Review",
      *     @OA\Response(response="default", description="Create a new Resturant Review"),
      * @OA\Parameter(
@@ -140,6 +142,7 @@ class ResturantReviewsController extends Controller
      /** @OA\Get(
         *     path="/api/resturantreviews/{id}",
         *     description="Get a specific resturant review",
+        *     tags={"Resturant Reviews"},
         *     @OA\Response(response="default", description="Get a specific resturant review"),
         * @OA\Parameter(
         *         description="Id of resturant review",
