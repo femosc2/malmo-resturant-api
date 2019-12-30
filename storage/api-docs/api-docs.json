@@ -179,6 +179,93 @@
                 }
             }
         },
+        "/api/resturantreviews": {
+            "get": {
+                "description": "Get all Resturant Reviews",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Resturant Reviews"
+                    }
+                }
+            }
+        },
+        "/api/resturantreviews/new": {
+            "post": {
+                "description": "Create a new Resturant Review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::create",
+                "parameters": [
+                    {
+                        "name": "reviewer",
+                        "in": "query",
+                        "description": "Name of Reviewer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "rating",
+                        "in": "query",
+                        "description": "Rating of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "review",
+                        "in": "query",
+                        "description": "Review of Resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "resturant_id",
+                        "in": "query",
+                        "description": "Id of resturant it belongs to.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new Resturant Review"
+                    }
+                }
+            }
+        },
+        "/api/resturantreviews/{id}": {
+            "get": {
+                "description": "Get a specific resturant review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific resturant review"
+                    }
+                }
+            }
+        },
         "/api/resturants": {
             "get": {
                 "description": "Get all Resturants",
