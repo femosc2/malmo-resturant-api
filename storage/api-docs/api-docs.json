@@ -7,6 +7,9 @@
     "paths": {
         "/api/itemreviews": {
             "get": {
+                "tags": [
+                    "Item Reviews"
+                ],
                 "description": "Get all Item Reviews",
                 "operationId": "App\\Http\\Controllers\\ItemReviewsController::index",
                 "responses": {
@@ -18,6 +21,9 @@
         },
         "/api/itemreviews/new": {
             "post": {
+                "tags": [
+                    "Item Reviews"
+                ],
                 "description": "Create a new Item Review",
                 "operationId": "App\\Http\\Controllers\\ItemReviewsController::create",
                 "parameters": [
@@ -71,6 +77,9 @@
         },
         "/api/itemreviews/{id}": {
             "get": {
+                "tags": [
+                    "Item Reviews"
+                ],
                 "description": "Get a specific item review",
                 "operationId": "App\\Http\\Controllers\\ItemReviewsController::show",
                 "parameters": [
@@ -94,6 +103,9 @@
         },
         "/api/items": {
             "get": {
+                "tags": [
+                    "Items"
+                ],
                 "description": "Get all Items",
                 "operationId": "App\\Http\\Controllers\\ItemsController::index",
                 "responses": {
@@ -105,6 +117,9 @@
         },
         "/api/items/new": {
             "post": {
+                "tags": [
+                    "Items"
+                ],
                 "description": "Create a new Item",
                 "operationId": "App\\Http\\Controllers\\ItemsController::create",
                 "parameters": [
@@ -158,6 +173,9 @@
         },
         "/api/items/{id}": {
             "get": {
+                "tags": [
+                    "Items"
+                ],
                 "description": "Get a specific item",
                 "operationId": "App\\Http\\Controllers\\ItemsController::show",
                 "parameters": [
@@ -181,6 +199,9 @@
         },
         "/api/resturantreviews": {
             "get": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
                 "description": "Get all Resturant Reviews",
                 "operationId": "App\\Http\\Controllers\\ResturantReviewsController::index",
                 "responses": {
@@ -192,6 +213,9 @@
         },
         "/api/resturantreviews/new": {
             "post": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
                 "description": "Create a new Resturant Review",
                 "operationId": "App\\Http\\Controllers\\ResturantReviewsController::create",
                 "parameters": [
@@ -245,6 +269,9 @@
         },
         "/api/resturantreviews/{id}": {
             "get": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
                 "description": "Get a specific resturant review",
                 "operationId": "App\\Http\\Controllers\\ResturantReviewsController::show",
                 "parameters": [
@@ -268,6 +295,9 @@
         },
         "/api/resturants": {
             "get": {
+                "tags": [
+                    "Resturants"
+                ],
                 "description": "Get all Resturants",
                 "operationId": "App\\Http\\Controllers\\ResturantsController::index",
                 "responses": {
@@ -279,6 +309,9 @@
         },
         "/api/resturants/new": {
             "post": {
+                "tags": [
+                    "Resturants"
+                ],
                 "description": "Create a new resturant",
                 "operationId": "App\\Http\\Controllers\\ResturantsController::create",
                 "parameters": [
@@ -312,6 +345,9 @@
         },
         "/api/resturants/{id}": {
             "get": {
+                "tags": [
+                    "Resturants"
+                ],
                 "description": "Get a specific resturant",
                 "operationId": "App\\Http\\Controllers\\ResturantsController::show",
                 "parameters": [

@@ -17,6 +17,7 @@ class ResturantsController extends Controller
       /**
      * @OA\Get(
      *     path="/api/resturants",
+     *      tags={"Resturants"},
      *     description="Get all Resturants",
      *     @OA\Response(response="default", description="Get all Resturants")
      * )
@@ -47,6 +48,7 @@ class ResturantsController extends Controller
      * @OA\Post(
      *     path="/api/resturants/new",
      *     description="Create a new resturant",
+     *     tags={"Resturants"},
      *     @OA\Response(response="default", description="Create a new resturant"),
      * @OA\Parameter(
      *         description="Name of Resturant",
@@ -110,6 +112,7 @@ class ResturantsController extends Controller
     /** @OA\Get(
         *     path="/api/resturants/{id}",
         *     description="Get a specific resturant",
+        *     tags={"Resturants"},
         *     @OA\Response(response="default", description="Get a specific resturant"),
         * @OA\Parameter(
         *         description="Id of resturant",
