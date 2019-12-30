@@ -11,3 +11,6 @@ Route::get('/items', 'ItemsController@index');
 Route::post('/itemreviews/new', 'ItemReviewsController@create');
 Route::get('/itemreviews', 'ItemReviewsController@index');
 Route::get('/itemreviews/{id}', 'ItemReviewsController@show');
+Route::post('/resturantreviews/new', 'ResturantReviewsController@create');
+Route::get('/resturantreviews', 'ResturantReviewsController@index');
+Route::get('/resturantreviews/{id}', 'ResturantReviewsController@show');

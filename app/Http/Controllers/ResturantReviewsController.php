@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Resturant;
 use App\Item;
-use App\ItemReview;
+use App\ResturantReview;
 
-class ItemReviewsController extends Controller
+class ResturantReviewsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,27 +17,25 @@ class ItemReviewsController extends Controller
 
       /**
      * @OA\Get(
-     *     path="/api/itemreviews",
-     *     description="Get all Item Reviews",
-     *     @OA\Response(response="default", description="Get all Item Reviews")
+     *     path="/api/resturantreviews",
+     *     description="Get all Resturant Reviews",
+     *     @OA\Response(response="default", description="Get all Resturant Reviews")
      * )
      */
 
     public function index()
     {
-        $item_reviews = ItemReview::all();
+        $resturant_review = ResturantReview::all();
 
         $jsonResponse = [];
 
-        foreach($item_reviews as $item_review) {
-            $item = Item::find($item_review->item_id);
-            $resturant_name = Resturant::find($item->resturant_id)->name;
+        foreach($resturant_reviews as $resturant_review) {
+            $resturant_name = Resturant::find($resturant_review->resturant_id)->name;
             array_push($jsonResponse, [
-                    'reviewer' => $item_review->reviewer,
-                    'review' => $item_review->review,
-                    'rating' => $item_review->rating,
-                    'item_id' => $item_review->item_id,
-                    'item_name' => $item->name,
+                    'reviewer' => $resturant_review->reviewer,
+                    'review' => $resturant_review->review,
+                    'rating' => $resturant_review->rating,
+                    'resturant_id' => $resturant_review->resturant_id,
                     'resturant' => $resturant_name,
                     ]);
         }
@@ -46,9 +44,9 @@ class ItemReviewsController extends Controller
     }
 
     /** @OA\Post(
-     *     path="/api/itemreviews/new",
-     *     description="Create a new Item Review",
-     *     @OA\Response(response="default", description="Create a new Item Review"),
+     *     path="/api/resturantreviews/new",
+     *     description="Create a new Resturant Review",
+     *     @OA\Response(response="default", description="Create a new Resturant Review"),
      * @OA\Parameter(
      *         description="Name of Reviewer",
      *         name="reviewer",
@@ -60,7 +58,7 @@ class ItemReviewsController extends Controller
      *         ),
      *     ),
      * @OA\Parameter(
-     *         description="Rating of Item",
+     *         description="Rating of resturant",
      *         name="rating",
      *         in="query",
      *         required=true,
@@ -70,7 +68,7 @@ class ItemReviewsController extends Controller
      *         ),
      *     ),
      * @OA\Parameter(
-     *         description="Review of Item",
+     *         description="Review of Resturant",
      *         name="review",
      *         in="query",
      *         required=true,
@@ -80,8 +78,8 @@ class ItemReviewsController extends Controller
      *         ),
      *     ),
      * @OA\Parameter(
-     *         description="Id of Item it belongs to.",
-     *         name="item_id",
+     *         description="Id of resturant it belongs to.",
+     *         name="resturant_id",
      *         in="query",
      *         required=true,
      *         @OA\Schema(
@@ -93,31 +91,31 @@ class ItemReviewsController extends Controller
      */
     public function create(Request $request)
     {
-        $item_review = new ItemReview;
+        $resturant_review = new ResturantReview;
 
-        $item_review->reviewer = $request->input('reviewer');
-        $item_review->rating = $request->input('rating');
-        $item_review->review = $request->input('review');
-        $item_review->item_id = $request->input('item_id');
+        $resturant_review->reviewer = $request->input('reviewer');
+        $resturant_review->rating = $request->input('rating');
+        $resturant_review->review = $request->input('review');
+        $resturant_review->resturant_id = $request->input('resturant_id');
 
-        $item_review->save();
+        $resturant_review->save();
 
-        $item_reviews = ItemReview::where('item_id', $item_review->item_id)->get();
-        $item_rating = 0;
-        foreach($item_reviews as $item_review) {
-            $item_rating = $item_rating + $item_review->rating;
+        $resturant_reviews = ResturantReview::where('resturant_id', $resturant_review->resturant_id)->get();
+        $resturant_rating = 0;
+        foreach($resturant_reviews as $resturant_review) {
+            $resturant_rating = $resturant_rating + $resturant_review->rating;
         }
-        $item_rating = $item_rating/sizeof($item_reviews);
+        $resturant_rating = $resturant_rating/sizeof($resturant_reviews);
 
-        $item = Item::find($item_review->item_id);
-
-
-        $item->rating = $item_rating;
-
-        echo $item;
+        $resturant = Resturant::find($resturant_review->resturant_id);
 
 
-        $item->update();
+        $resturant->rating = $resturant_rating;
+
+        echo $resturant;
+
+
+        $resturant->update();
 
     }
 
@@ -140,11 +138,11 @@ class ItemReviewsController extends Controller
      */
 
      /** @OA\Get(
-        *     path="/api/itemreviews/{id}",
-        *     description="Get a specific item review",
-        *     @OA\Response(response="default", description="Get a specific item review"),
+        *     path="/api/resturantreviews/{id}",
+        *     description="Get a specific resturant review",
+        *     @OA\Response(response="default", description="Get a specific resturant review"),
         * @OA\Parameter(
-        *         description="Id of item review",
+        *         description="Id of resturant review",
         *         name="id",
         *         in="query",
         *         required=true,
@@ -157,17 +155,15 @@ class ItemReviewsController extends Controller
         */
     public function show(Request $request)
     {
-        $item_review = ItemReview::find($request->id);
+        $resturant_review = ResturantReview::find($request->id);
         $jsonResponse = [];
-        $item = Item::find($item_review->item_id);
-        $resturant_name = Resturant::find($item->resturant_id)->name;
+        $resturant_name = Resturant::find($resturant_review->resturant_id)->name;
 
         array_push($jsonResponse, [
-                'reviwer' => $item_review->reviewer,
-                'review' => $item_review->review,
-                'rating' => $item_review->rating,
-                'item_id' => $item_review->item_id,
-                'item_name' => $item->name,
+                'reviwer' => $resturant_review->reviewer,
+                'review' => $resturant_review->review,
+                'rating' => $resturant_review->rating,
+                'resturant_id' => $resturant_review->resturant_id,
                 'resturant' => $resturant_name,
                 ]);
 
