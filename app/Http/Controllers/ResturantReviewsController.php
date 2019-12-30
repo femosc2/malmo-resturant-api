@@ -100,6 +100,9 @@ class ResturantReviewsController extends Controller
         $resturant_review->review = $request->input('review');
         $resturant_review->resturant_id = $request->input('resturant_id');
 
+        if(strlen($resturant_review->reviewer) > 30 || $resturant_review->rating > 10 || $resturant_review->rating < 0) {
+            return abort(400, 'Name can not be longer than 30 characters and rating can not be higher than 10 or lower than 0');
+        } else {
         $resturant_review->save();
 
         $resturant_reviews = ResturantReview::where('resturant_id', $resturant_review->resturant_id)->get();
@@ -108,17 +111,21 @@ class ResturantReviewsController extends Controller
             $resturant_rating = $resturant_rating + $resturant_review->rating;
         }
         $resturant_rating = $resturant_rating/sizeof($resturant_reviews);
-
         $resturant = Resturant::find($resturant_review->resturant_id);
-
-
         $resturant->rating = $resturant_rating;
-
-        echo $resturant;
-
-
         $resturant->update();
 
+        $jsonResponse = [];
+
+        array_push($jsonResponse, [
+            'reviwer' => $resturant_review->reviewer,
+            'review' => $resturant_review->review,
+            'rating' => $resturant_review->rating,
+            'resturant_id' => $resturant_review->resturant_id,
+            ]);
+
+        return $jsonResponse;
+    }
     }
 
     /**

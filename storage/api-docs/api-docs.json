@@ -40,7 +40,7 @@
                     {
                         "name": "rating",
                         "in": "query",
-                        "description": "Rating of Item",
+                        "description": "Rating of Item (0-10)",
                         "required": true,
                         "schema": {
                             "type": "integer",
