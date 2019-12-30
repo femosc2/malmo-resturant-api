@@ -36,6 +36,8 @@ class ItemsController extends Controller
                     'price' => $item->price,
                     'rating' => $item->rating,
                     'resturant' => $resturant_name,
+                    'reports' => $item->reports,
+                    'is_bad' => $item->is_bad,
                     ]);
         }
         return $jsonResponse;
@@ -112,6 +114,8 @@ class ItemsController extends Controller
             'type' => $item->type,
             'price' => $item->price,
             'resturant' => $item->resturant_id,
+            'reports' => $item->reports,
+            'is_bad' => $item->is_bad,
             ]);
 
         return $jsonResponse;
@@ -163,6 +167,8 @@ class ItemsController extends Controller
             'price' => $item->price,
             'rating' => $item->rating,
             'resturant' => $resturant_name,
+            'reports' => $item->reports,
+            'is_bad' => $item->is_bad,
         ];
 
         return $jsonResponse;
@@ -198,8 +204,90 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         //
+    }
+
+    /** @OA\Put(
+        *     path="/api/items/report/{id}",
+        *     description="Report an item",
+        *     tags={"Items"},
+        *     @OA\Response(response="default", description="Report an item"),
+        * @OA\Parameter(
+        *         description="Id of item",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+    public function report(Request $request)
+    {
+        $item = Item::find($request->id);
+        $item->reports++;
+
+        if($item->reports > 20) {
+            $item->is_bad = true;
+        }
+
+        $item->update();
+
+        $jsonResponse = [];
+
+        array_push($jsonResponse, [
+            'reports' => $item->reports,
+            'is_bad' => $item->is_bad,
+        ]);
+
+        return $jsonResponse;
+    }
+
+
+    /** @OA\Put(
+        *     path="/api/items/unreport/{id}",
+        *     description="unreport an item",
+        *     tags={"Items"},
+        *     @OA\Response(response="default", description="unreport an item"),
+        * @OA\Parameter(
+        *         description="Id of item",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+    public function unreport(Request $request)
+    {
+        $item = Item::find($request->id);
+        if(!$item->reports <= 0) {
+            $item->reports--;
+        } else {
+            return abort(400, 'This item does not have any reports');
+        }
+
+        if($item->reports <= 20) {
+            $item->is_bad = false;
+        };
+
+        $item->update();
+
+        $jsonResponse = [];
+
+        array_push($jsonResponse, [
+            'reports' => $item->reports,
+            'is_bad' => $item->is_bad,
+        ]);
+
+        return $jsonResponse;
     }
 }

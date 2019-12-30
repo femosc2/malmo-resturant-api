@@ -40,6 +40,8 @@ class ItemReviewsController extends Controller
                     'item_id' => $item_review->item_id,
                     'item_name' => $item->name,
                     'resturant' => $resturant_name,
+                    'reports' => $item_review->reports,
+                    'is_bad' => $item_review->is_bad,
                     ]);
         }
 
@@ -179,6 +181,8 @@ class ItemReviewsController extends Controller
                 'item_id' => $item_review->item_id,
                 'item_name' => $item->name,
                 'resturant' => $resturant_name,
+                'reports' => $item_review->reports,
+                'is_bad' => $item_review->is_bad,
                 ]);
 
         return $jsonResponse;
@@ -217,4 +221,87 @@ class ItemReviewsController extends Controller
     {
         //
     }
+
+    /** @OA\Put(
+        *     path="/api/itemreviews/report/{id}",
+        *     description="Report an item review",
+        *     tags={"Item Reviews"},
+        *     @OA\Response(response="default", description="Report an item review"),
+        * @OA\Parameter(
+        *         description="Id of item review",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function report(Request $request)
+        {
+            $item_review = ItemReview::find($request->id);
+            $item_review->reports++;
+
+            if($item_review->reports > 20) {
+                $item_review->is_bad = true;
+            }
+
+            $item_review->update();
+
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'reports' => $item_review->reports,
+                'is_bad' => $item_review->is_bad,
+            ]);
+
+            return $jsonResponse;
+        }
+
+
+        /** @OA\Put(
+            *     path="/api/itemreviews/unreport/{id}",
+            *     description="unreport an item review",
+            *     tags={"Item Reviews"},
+            *     @OA\Response(response="default", description="unreport an item review"),
+            * @OA\Parameter(
+            *         description="Id of item reviews",
+            *         name="id",
+            *         in="query",
+            *         required=true,
+            *         @OA\Schema(
+            *             type="integer",
+            *             format="file"
+            *         ),
+            *     ),
+            * )
+            */
+        public function unreport(Request $request)
+        {
+            $item_review = ItemReview::find($request->id);
+
+            if(!$item_review->reports <= 0) {
+                $item_review->reports--;
+            } else {
+                return abort(400, 'This item review does not have any reports');
+            }
+
+            if($item_review->reports <= 20) {
+                $item_review->is_bad = false;
+            };
+
+            $item_review->update();
+
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'reports' => $item_review->reports,
+                'is_bad' => $item_review->is_bad,
+            ]);
+
+            return $jsonResponse;
+        }
+
 }

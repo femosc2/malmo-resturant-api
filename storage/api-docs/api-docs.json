@@ -101,6 +101,58 @@
                 }
             }
         },
+        "/api/itemreviews/report/{id}": {
+            "put": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "Report an item review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an item review"
+                    }
+                }
+            }
+        },
+        "/api/itemreviews/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "unreport an item review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item reviews",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an item review"
+                    }
+                }
+            }
+        },
         "/api/items": {
             "get": {
                 "tags": [
@@ -193,6 +245,58 @@
                 "responses": {
                     "default": {
                         "description": "Get a specific item"
+                    }
+                }
+            }
+        },
+        "/api/items/report/{id}": {
+            "put": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "Report an item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an item"
+                    }
+                }
+            }
+        },
+        "/api/items/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "unreport an item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an item"
                     }
                 }
             }
@@ -293,6 +397,58 @@
                 }
             }
         },
+        "/api/resturantreviews/report/{id}": {
+            "put": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
+                "description": "Report a Resturant Review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of Resturant Review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an item"
+                    }
+                }
+            }
+        },
+        "/api/resturantreviews/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
+                "description": "unreport an Resturant Review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an Resturant Review"
+                    }
+                }
+            }
+        },
         "/api/resturants": {
             "get": {
                 "tags": [
@@ -365,6 +521,58 @@
                 "responses": {
                     "default": {
                         "description": "Get a specific resturant"
+                    }
+                }
+            }
+        },
+        "/api/resturants/report/{id}": {
+            "put": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "Report a Resturant",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of Resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report a Resturant"
+                    }
+                }
+            }
+        },
+        "/api/resturants/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "unreport a Resturant",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport a Resturant"
                     }
                 }
             }
