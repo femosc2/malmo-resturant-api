@@ -79,16 +79,28 @@ class ResturantsController extends Controller
         $resturant->name = $request->input('name');
         $resturant->location = $request->input('location');
 
-        $resturant->save();
+        $request_location = str_replace(" ", "%20", $resturant->location);
+        $response = file_get_contents('https://maps.google.com/maps/api/geocode/json?address='. $request_location . '&key=' . env('GOOGLE_API_KEY') );
 
-        $jsonResponse = [];
+        $response = json_decode($response);
 
-        array_push($jsonResponse, [
-            'name' => $resturant->name,
-            'location' => $resturant->location,
-            ]);
+        if(($response->results[0]->address_components[1]->long_name == 'Malmö')
+        || ($response->results[0]->address_components[2]->long_name == 'Malmö')
+        || ($response->results[0]->address_components[3]->long_name == 'Malmö') ) {
+            $resturant->save();
 
-        return $jsonResponse;
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'name' => $resturant->name,
+                'location' => $resturant->location,
+                ]);
+
+            return $jsonResponse;
+        } else {
+            return 'This resturant is not located in Malmö';
+        }
+
     }
 
     /**
