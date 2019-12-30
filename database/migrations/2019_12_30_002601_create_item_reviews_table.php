@@ -15,9 +15,9 @@ class CreateItemReviewsTable extends Migration
     {
         Schema::create('item_reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('reviewer');
+            $table->string('reviewer', 30);
             $table->integer('rating')->unsigned();
-            $table->text('review');
+            $table->string('review', 1000);
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items');
             $table->timestamps();

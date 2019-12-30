@@ -62,7 +62,7 @@ class ItemReviewsController extends Controller
      *         ),
      *     ),
      * @OA\Parameter(
-     *         description="Rating of Item",
+     *         description="Rating of Item (0-10)",
      *         name="rating",
      *         in="query",
      *         required=true,
@@ -102,25 +102,32 @@ class ItemReviewsController extends Controller
         $item_review->review = $request->input('review');
         $item_review->item_id = $request->input('item_id');
 
-        $item_review->save();
+        if(strlen($item_review->reviewer) > 30 || $item_review->rating > 10 || $item_review->rating < 0) {
+            return abort(400, 'Name can not be longer than 30 characters and rating can not be higher than 10 or lower than 0');
+        } else {
+            $item_review->save();
 
-        $item_reviews = ItemReview::where('item_id', $item_review->item_id)->get();
-        $item_rating = 0;
-        foreach($item_reviews as $item_review) {
-            $item_rating = $item_rating + $item_review->rating;
+            $item_reviews = ItemReview::where('item_id', $item_review->item_id)->get();
+            $item_rating = 0;
+            foreach($item_reviews as $item_review) {
+                $item_rating = $item_rating + $item_review->rating;
+            }
+            $item_rating = $item_rating/sizeof($item_reviews);
+            $item = Item::find($item_review->item_id);
+            $item->rating = $item_rating;
+            $item->update();
+
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'reviwer' => $item_review->reviewer,
+                'review' => $item_review->review,
+                'rating' => $item_review->rating,
+                'item_id' => $item_review->item_id,
+                ]);
+
+            return $jsonResponse;
         }
-        $item_rating = $item_rating/sizeof($item_reviews);
-
-        $item = Item::find($item_review->item_id);
-
-
-        $item->rating = $item_rating;
-
-        echo $item;
-
-
-        $item->update();
-
     }
 
     /**

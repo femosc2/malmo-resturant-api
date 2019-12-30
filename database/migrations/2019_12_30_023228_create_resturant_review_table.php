@@ -15,9 +15,9 @@ class CreateResturantReviewTable extends Migration
     {
         Schema::create('resturant_reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('reviewer');
+            $table->string('reviewer', 30);
             $table->integer('rating')->unsigned();
-            $table->text('review');
+            $table->string('review', 1000);
             $table->unsignedBigInteger('resturant_id');
             $table->foreign('resturant_id')->references('id')->on('resturants');
             $table->timestamps();
