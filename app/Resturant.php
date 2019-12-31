@@ -12,4 +12,8 @@ class Resturant extends Model
     public function resturant_review() {
         return $this->hasMany('App\ResturantReview');
     }
+
+    public function resturant_image() {
+        return $this->hasMany('App\ResturantImage');
+    }
 }

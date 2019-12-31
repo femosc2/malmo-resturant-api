@@ -1,0 +1,216 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\ItemImage;
+
+class ItemImagesController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $item_images = ItemImage::all();
+
+        $jsonResponse = [];
+
+        foreach($item_images as $item_image) {
+            $item = Item::find($item_image->item_id);
+            $resturant_name = Resturant::find($item->resturant_id)->name;
+            array_push($jsonResponse, [
+                    'image' => $item_image->image,
+                    'item_id' => $item_image->item_id,
+                    'reports' => $item_image->reports,
+                    'is_bad' => $item_image->is_bad,
+                    ]);
+        }
+
+        return $jsonResponse;
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+
+     /**
+     * @OA\Post(
+     *     path="/api/itemimages/new",
+     *     description="Create a new item image",
+     *     tags={"Item Images"},
+     *     @OA\Response(response="default", description="Create a new item image"),
+     * @OA\Parameter(
+     *         description="Url to an image",
+     *         name="image",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="file"
+     *         ),
+     *     ),
+     *  @OA\Parameter(
+     *         description="item_id",
+     *         name="item_id",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="file"
+     *         ),
+     *     ),
+     * )
+     */
+    public function create(Request $request)
+    {
+        $item_image = new ItemImage;
+
+        $item_image->image = $request->input('image');
+        $item_image->item_id = $request->input('item_id');
+
+        $item_image->save();
+     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+    /** @OA\Put(
+        *     path="/api/itemimages/report/{id}",
+        *     description="Report an item image",
+        *     tags={"Item Images"},
+        *     @OA\Response(response="default", description="Report an item review"),
+        * @OA\Parameter(
+        *         description="Id of item image",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function report(Request $request)
+        {
+            $item_image= ItemImage::find($request->id);
+            $item_image->reports++;
+
+            if($item_image->reports > 20) {
+                $item_image->is_bad = True;
+            }
+
+            $item_review->update();
+
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'reports' => $item_image->reports,
+                'is_bad' => $item_image->is_bad,
+            ]);
+
+            return $jsonResponse;
+        }
+
+
+        /** @OA\Put(
+            *     path="/api/itemimages/unreport/{id}",
+            *     description="unreport an item review",
+            *     tags={"Item Images"},
+            *     @OA\Response(response="default", description="unreport an item review"),
+            * @OA\Parameter(
+            *         description="Id of item reviews",
+            *         name="id",
+            *         in="query",
+            *         required=true,
+            *         @OA\Schema(
+            *             type="integer",
+            *             format="file"
+            *         ),
+            *     ),
+            * )
+            */
+        public function unreport(Request $request)
+        {
+            $item_image = ItemImage::find($request->id);
+
+            if(!$item_image->reports <= 0) {
+                $item_image->reports--;
+            } else {
+                return abort(400, 'This item review does not have any reports');
+            }
+
+            if($item_image->reports <= 20) {
+                $item_image->is_bad = False;
+            };
+
+            $item_image->update();
+
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'reports' => $item_image->reports,
+                'is_bad' => $item_image->is_bad,
+            ]);
+
+            return $jsonResponse;
+        }
+}

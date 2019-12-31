@@ -238,13 +238,10 @@ class ResturantReviewsController extends Controller
         public function report(Request $request)
         {
             $resturant_review = ResturantReview::find($request->id);
-
-            if(!$resturant_review->reports <= 0) {
-                $resturant_review->reports++;
-            };
+            $resturant_review->reports++;
 
             if($resturant_review->reports > 20) {
-                $resturant_review->is_bad = true;
+                $resturant_review->is_bad = True;
             }
 
             $resturant_review->update();
@@ -283,7 +280,7 @@ class ResturantReviewsController extends Controller
             $resturant_review->reports--;
 
             if($resturant_review->reports <= 20) {
-                $resturant_review->is_bad = false;
+                $resturant_review->is_bad = False;
             } else {
                 return abort(400, 'This review does not have any reports');
             }

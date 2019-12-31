@@ -13,4 +13,8 @@ class Item extends Model
     public function item_review() {
         return $this->hasMany('App\ItemReview');
     }
+
+    public function item_image() {
+        return $this->hasMany('App\ItemImage');
+    }
 }

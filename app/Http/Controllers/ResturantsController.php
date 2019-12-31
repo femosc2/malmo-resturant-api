@@ -212,7 +212,7 @@ class ResturantsController extends Controller
             $resturant->reports++;
 
             if($resturant->reports > 20) {
-                $resturant->is_bad = true;
+                $resturant->is_bad = True;
             }
 
             $resturant->update();
@@ -256,7 +256,7 @@ class ResturantsController extends Controller
             }
 
             if($resturant->reports <= 20) {
-                $resturant->is_bad = false;
+                $resturant->is_bad = False;
             }
 
             $resturant->update();

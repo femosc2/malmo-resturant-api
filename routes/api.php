@@ -32,3 +32,17 @@ Route::get('/resturantreviews', 'ResturantReviewsController@index');
 Route::get('/resturantreviews/{id}', 'ResturantReviewsController@show');
 Route::put('/resturantreviews/report/{id}', 'ResturantReviewsController@report');
 Route::put('/resturantreviews/unreport/{id}', 'ResturantReviewsController@unreport');
+
+// Resturant Images
+Route::post('/resturantimages/new', 'ResturantImagesController@create');
+Route::get('/resturantimages', 'ResturantImagesController@index');
+Route::get('/resturantimages/{id}', 'ResturantImagesController@show');
+Route::put('/resturantimages/report/{id}', 'ResturantImagesController@report');
+Route::put('/resturantimages/unreport/{id}', 'ResturantImagesController@unreport');
+
+// Item Images
+Route::post('/itemimages/new', 'ItemImagesController@create');
+Route::get('/itemimages', 'ItemImagesController@index');
+Route::get('/itemimages/{id}', 'ItemImagesController@show');
+Route::put('/itemimages/report/{id}', 'ItemImagesController@report');
+Route::put('/itemimages/unreport/{id}', 'ItemImagesController@unreport');

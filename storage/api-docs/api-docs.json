@@ -5,6 +5,94 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/itemimages/new": {
+            "post": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Create a new item image",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::create",
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Url to an image",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "query",
+                        "description": "item_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new item image"
+                    }
+                }
+            }
+        },
+        "/api/itemimages/report/{id}": {
+            "put": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Report an item image",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an item review"
+                    }
+                }
+            }
+        },
+        "/api/itemimages/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "unreport an item review",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item reviews",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an item review"
+                    }
+                }
+            }
+        },
         "/api/itemreviews": {
             "get": {
                 "tags": [
@@ -297,6 +385,94 @@
                 "responses": {
                     "default": {
                         "description": "unreport an item"
+                    }
+                }
+            }
+        },
+        "/api/resturantimages/new": {
+            "post": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Create a new resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::create",
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Url to an image",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "resturant_id",
+                        "in": "query",
+                        "description": "resturant_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new resturant image"
+                    }
+                }
+            }
+        },
+        "/api/resturantimages/report/{id}": {
+            "put": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Report an resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of Resturant image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an Resturant image"
+                    }
+                }
+            }
+        },
+        "/api/resturantimages/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "unreport an item review",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item reviews",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an item review"
                     }
                 }
             }
