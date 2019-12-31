@@ -245,7 +245,7 @@ class ItemReviewsController extends Controller
             $item_review->reports++;
 
             if($item_review->reports > 20) {
-                $item_review->is_bad = true;
+                $item_review->is_bad = True;
             }
 
             $item_review->update();
@@ -289,7 +289,7 @@ class ItemReviewsController extends Controller
             }
 
             if($item_review->reports <= 20) {
-                $item_review->is_bad = false;
+                $item_review->is_bad = False;
             };
 
             $item_review->update();
