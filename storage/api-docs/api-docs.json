@@ -5,6 +5,20 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/itemimages": {
+            "get": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Get all Item Images",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Item Images"
+                    }
+                }
+            }
+        },
         "/api/itemimages/new": {
             "post": {
                 "tags": [
@@ -41,6 +55,32 @@
                 }
             }
         },
+        "/api/itemimages/{id}": {
+            "get": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Get a specific item image",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific item image"
+                    }
+                }
+            }
+        },
         "/api/itemimages/report/{id}": {
             "put": {
                 "tags": [
@@ -70,7 +110,7 @@
         "/api/itemimages/unreport/{id}": {
             "put": {
                 "tags": [
-                    "Item Reviews"
+                    "Item Images"
                 ],
                 "description": "unreport an item review",
                 "operationId": "App\\Http\\Controllers\\ItemImagesController::unreport",
@@ -389,6 +429,20 @@
                 }
             }
         },
+        "/api/resturantimages": {
+            "get": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Get all Resturant Images",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Resturant Images"
+                    }
+                }
+            }
+        },
         "/api/resturantimages/new": {
             "post": {
                 "tags": [
@@ -425,6 +479,32 @@
                 }
             }
         },
+        "/api/resturantsimages/{id}": {
+            "get": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Get a specific resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific resturant image"
+                    }
+                }
+            }
+        },
         "/api/resturantimages/report/{id}": {
             "put": {
                 "tags": [
@@ -454,7 +534,7 @@
         "/api/resturantimages/unreport/{id}": {
             "put": {
                 "tags": [
-                    "Item Reviews"
+                    "Resturant Images"
                 ],
                 "description": "unreport an item review",
                 "operationId": "App\\Http\\Controllers\\ResturantImagesController::unreport",

@@ -17,7 +17,7 @@ class CreateImagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('image');
             $table->integer('reports')->unsigned()->default(0);
-            $table->boolean('is_bad')->unsigned()->default(false);
+            $table->boolean('is_bad')->unsigned()->default(False);
             $table->unsignedBigInteger('resturant_id');
             $table->foreign('resturant_id')->references('id')->on('resturants');
             $table->timestamps();
@@ -27,7 +27,7 @@ class CreateImagesTable extends Migration
             $table->bigIncrements('id');
             $table->string('image');
             $table->integer('reports')->unsigned()->default(0);
-            $table->boolean('is_bad')->unsigned()->default(false);
+            $table->boolean('is_bad')->unsigned()->default(False);
             $table->unsignedBigInteger('item_id');
             $table->foreign('item_id')->references('id')->on('items');
             $table->timestamps();

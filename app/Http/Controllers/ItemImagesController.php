@@ -12,6 +12,14 @@ class ItemImagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /** @OA\Get(
+        *     path="/api/itemimages",
+        *     tags={"Item Images"},
+        *     description="Get all Item Images",
+        *     @OA\Response(response="default", description="Get all Item Images")
+        * )
+    */
     public function index()
     {
         $item_images = ItemImage::all();
@@ -19,8 +27,6 @@ class ItemImagesController extends Controller
         $jsonResponse = [];
 
         foreach($item_images as $item_image) {
-            $item = Item::find($item_image->item_id);
-            $resturant_name = Resturant::find($item->resturant_id)->name;
             array_push($jsonResponse, [
                     'image' => $item_image->image,
                     'item_id' => $item_image->item_id,
@@ -93,10 +99,38 @@ class ItemImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    /** @OA\Get(
+        *     path="/api/itemimages/{id}",
+        *     description="Get a specific item image",
+        *     tags={"Item Images"},
+        *     @OA\Response(response="default", description="Get a specific item image"),
+        * @OA\Parameter(
+        *         description="Id of item image",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function show(Request $request)
+        {
+
+            $item_image = ItemImage::find($request->id);
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'image' => $item_image->image,
+                'item_id' => $item_image->item_id,
+                'reports' => $item_image->reports,
+                'is_bad' => $item_image->is_bad,
+                ]);
+
+            return $jsonResponse;
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -151,14 +185,15 @@ class ItemImagesController extends Controller
         */
         public function report(Request $request)
         {
-            $item_image= ItemImage::find($request->id);
+            $item_image = ItemImage::find($request->id);
+
             $item_image->reports++;
 
             if($item_image->reports > 20) {
                 $item_image->is_bad = True;
             }
 
-            $item_review->update();
+            $item_image->update();
 
             $jsonResponse = [];
 
@@ -195,7 +230,7 @@ class ItemImagesController extends Controller
             if(!$item_image->reports <= 0) {
                 $item_image->reports--;
             } else {
-                return abort(400, 'This item review does not have any reports');
+                return abort(400, 'This item image does not have any reports');
             }
 
             if($item_image->reports <= 20) {

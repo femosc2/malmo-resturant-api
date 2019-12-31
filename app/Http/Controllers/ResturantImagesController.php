@@ -12,9 +12,30 @@ class ResturantImagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /** @OA\Get(
+        *     path="/api/resturantimages",
+        *     tags={"Resturant Images"},
+        *     description="Get all Resturant Images",
+        *     @OA\Response(response="default", description="Get all Resturant Images")
+        * )
+    */
     public function index()
     {
+        $resturant_images = ResturantImage::all();
 
+        $jsonResponse = [];
+
+        foreach($resturant_images as $resturant_image) {
+            array_push($jsonResponse, [
+                    'image' => $resturant_image->image,
+                    'resturant_id' => $resturant_image->resturant_id,
+                    'reports' => $resturant_image->reports,
+                    'is_bad' => $resturant_image->is_bad,
+                    ]);
+        }
+
+        return $jsonResponse;
     }
 
     /**
@@ -78,10 +99,38 @@ class ResturantImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    /** @OA\Get(
+        *     path="/api/resturantsimages/{id}",
+        *     description="Get a specific resturant image",
+        *     tags={"Resturant Images"},
+        *     @OA\Response(response="default", description="Get a specific resturant image"),
+        * @OA\Parameter(
+        *         description="Id of resturant image",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function show(Request $request)
+        {
+
+            $resturant_image = ResturantImage::find($request->id);
+            $jsonResponse = [];
+
+            array_push($jsonResponse, [
+                'image' => $resturant_image->image,
+                'resturant_id' => $resturant_image->resturant_id,
+                'reports' => $resturant_image->reports,
+                'is_bad' => $resturant_image->is_bad,
+                ]);
+
+            return $jsonResponse;
+        }
 
     /**
      * Show the form for editing the specified resource.
@@ -143,7 +192,7 @@ class ResturantImagesController extends Controller
                 $resturant_image->is_bad = True;
             }
 
-            $resturant_review->update();
+            $resturant_image->update();
 
             $jsonResponse = [];
 
@@ -159,7 +208,7 @@ class ResturantImagesController extends Controller
         /** @OA\Put(
             *     path="/api/resturantimages/unreport/{id}",
             *     description="unreport an item review",
-            *     tags={"Resturant Reviews"},
+            *     tags={"Resturant Images"},
             *     @OA\Response(response="default", description="unreport an item review"),
             * @OA\Parameter(
             *         description="Id of item reviews",
@@ -175,25 +224,25 @@ class ResturantImagesController extends Controller
             */
         public function unreport(Request $request)
         {
-            $item_image = ItemImage::find($request->id);
+            $resturant_image = ResturantImage::find($request->id);
 
-            if(!$item_image->reports <= 0) {
-                $item_image->reports--;
+            if(!$resturant_image->reports <= 0) {
+                $resturant_image->reports--;
             } else {
-                return abort(400, 'This item review does not have any reports');
+                return abort(400, 'This resturant image does not have any reports');
             }
 
-            if($item_image->reports <= 20) {
-                $item_image->is_bad = False;
+            if($resturant_image->reports <= 20) {
+                $resturant_image->is_bad = False;
             };
 
-            $item_image->update();
+            $resturant_image->update();
 
             $jsonResponse = [];
 
             array_push($jsonResponse, [
-                'reports' => $item_image->reports,
-                'is_bad' => $item_image->is_bad,
+                'reports' => $resturant_image->reports,
+                'is_bad' => $resturant_image->is_bad,
             ]);
 
             return $jsonResponse;

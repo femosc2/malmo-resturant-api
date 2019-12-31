@@ -15,19 +15,19 @@ class AddReportColumnToItemreviewsAndResturantreviews extends Migration
     {
         Schema::table('item_reviews', function (Blueprint $table) {
             $table->integer('reports')->unsigned()->default(0);
-            $table->boolean('is_bad')->unsigned()->default(false);
+            $table->boolean('is_bad')->unsigned()->default(False);
         });
         Schema::table('resturant_reviews', function (Blueprint $table) {
             $table->integer('reports')->unsigned()->default(0);
-            $table->boolean('is_bad')->unsigned()->default(false);
+            $table->boolean('is_bad')->unsigned()->default(False);
         });
         Schema::table('resturants', function (Blueprint $table) {
             $table->integer('reports')->unsigned()->default(0);
-            $table->boolean('is_bad')->unsigned()->default(false);
+            $table->boolean('is_bad')->unsigned()->default(False);
         });
         Schema::table('items', function (Blueprint $table) {
             $table->integer('reports')->unsigned()->default(0);
-            $table->boolean('is_bad')->unsigned()->default(false);
+            $table->boolean('is_bad')->unsigned()->default(False);
         });
     }
 
@@ -38,7 +38,7 @@ class AddReportColumnToItemreviewsAndResturantreviews extends Migration
      */
     public function down()
     {
-        Schema::table('itemreviews_and_resturantreviews', function (Blueprint $table) {
+        Schema::table('items', function (Blueprint $table) {
             //
         });
     }
