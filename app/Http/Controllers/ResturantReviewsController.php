@@ -242,7 +242,7 @@ class ResturantReviewsController extends Controller
     }
 
     /**
-    /** @OA\Delete(
+    *@OA\Delete(
         *     path="/api/resturantreviews/delete/{id}",
         *     description="Delete a specific resturant review",
         *     tags={"Resturant Reviews"},

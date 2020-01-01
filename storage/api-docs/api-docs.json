@@ -143,6 +143,32 @@
                 }
             }
         },
+        "/api/itemimages/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Delete a specific item",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item images",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific item images"
+                    }
+                }
+            }
+        },
         "/api/itemimages/report/{id}": {
             "put": {
                 "tags": [
@@ -317,6 +343,32 @@
                 "responses": {
                     "default": {
                         "description": "Get a specific item review"
+                    }
+                }
+            }
+        },
+        "/api/itemsreviews/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "Delete a specific item review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific item review"
                     }
                 }
             }
@@ -703,6 +755,32 @@
                 }
             }
         },
+        "/api/resturantimages/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Delete a specific resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific resturant images"
+                    }
+                }
+            }
+        },
         "/api/resturantimages/report/{id}": {
             "put": {
                 "tags": [
@@ -881,6 +959,32 @@
                 }
             }
         },
+        "/api/resturantreviews/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
+                "description": "Delete a specific resturant review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific resturant reviews"
+                    }
+                }
+            }
+        },
         "/api/resturantreviews/report/{id}": {
             "put": {
                 "tags": [
@@ -1035,6 +1139,32 @@
                 "responses": {
                     "default": {
                         "description": "Get a specific resturant"
+                    }
+                }
+            }
+        },
+        "/api/resturants/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Resturant"
+                ],
+                "description": "Delete a specific resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific resturant"
                     }
                 }
             }
