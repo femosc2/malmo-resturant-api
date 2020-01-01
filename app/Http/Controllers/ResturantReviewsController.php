@@ -29,7 +29,7 @@ class ResturantReviewsController extends Controller
     {
         $resturant_reviews = ResturantReview::all();
 
-        if (sizeof($resturants_reviews) == 0) {
+        if (sizeof($resturant_reviews) == 0) {
             return abort(400, 'There exists no resturant reviews');
         };
 
@@ -45,7 +45,7 @@ class ResturantReviewsController extends Controller
                     'resturant_id' => $resturant_review->resturant_id,
                     'resturant' => $resturant_name,
                     'reports' => $resturant_review->reports,
-                    'is_bad' => $returant_review->is_bad,
+                    'is_bad' => $resturant_review->is_bad,
                     ]);
         }
 
@@ -212,7 +212,7 @@ class ResturantReviewsController extends Controller
                 'resturant_id' => $resturant_review->resturant_id,
                 'resturant' => $resturant_name,
                 'reports' => $resturant_review->reports,
-                'is_bad' => $returant_review->is_bad,
+                'is_bad' => $resturant_review->is_bad,
                 ]);
 
         return $jsonResponse;

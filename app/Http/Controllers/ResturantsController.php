@@ -181,6 +181,8 @@ class ResturantsController extends Controller
             'name' => $resturant->name,
             'location' => $resturant->location,
             'rating' => $resturant->rating,
+            'reports' => $resturant->reports,
+            'is_bad' => $resturant->is_bad,
             ]);
 
         return $jsonResponse;
