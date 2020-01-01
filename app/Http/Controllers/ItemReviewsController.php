@@ -98,6 +98,16 @@ class ItemReviewsController extends Controller
      *             format="file"
      *         ),
      *     ),
+     *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
      *  )
      */
     public function create(Request $request)
@@ -256,6 +266,16 @@ class ItemReviewsController extends Controller
         *             format="file"
         *         ),
         *     ),
+        *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
         * )
         */
         public function report(Request $request)
@@ -315,6 +335,16 @@ class ItemReviewsController extends Controller
             *             format="file"
             *         ),
             *     ),
+            *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
             * )
             */
         public function unreport(Request $request)
