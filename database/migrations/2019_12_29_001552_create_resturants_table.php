@@ -14,7 +14,7 @@ class CreateResturantsTable extends Migration
     public function up()
     {
         Schema::create('resturants', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->onDelete('cascade');
             $table->string('name');
             $table->string('location');
             $table->timestamps();

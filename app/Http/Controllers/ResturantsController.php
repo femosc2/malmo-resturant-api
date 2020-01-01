@@ -215,10 +215,46 @@ class ResturantsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    /** @OA\Delete(
+        *     path="/api/resturants/delete/{id}",
+        *     description="Delete a specific resturant image",
+        *     tags={"Resturants"},
+        *     @OA\Response(response="default", description="Delete a specific resturant"),
+        * @OA\Parameter(
+        *         description="Id of resturant",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        *  @OA\Parameter(
+     *         description="Api Token",
+     *         name="token",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="file"
+     *         ),
+     *     ),
+        * )
+        */
+        public function destroy(Request $request)
+        {
+            $level_2_tokens = ApiToken::where('level', '=', 2)->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $level_2_tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
+            Resturant::find($request->id)->delete();
+
+            return ['Resturant Deleted'];
+
+        }
 
     /** @OA\Put(
         *     path="/api/resturants/report/{id}",

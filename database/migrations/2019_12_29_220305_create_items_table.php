@@ -14,13 +14,13 @@ class CreateItemsTable extends Migration
     public function up()
     {
         Schema::create('items', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->onDelete('cascade');
             $table->string('name', 30);
             $table->string('type');
             $table->float('rating')->nullable();
             $table->integer('price')->unsigned();
             $table->unsignedBigInteger('resturant_id');
-            $table->foreign('resturant_id')->references('id')->on('resturants');
+            $table->foreign('resturant_id')->references('id')->on('resturants')->onDelete('cascade');
             $table->timestamps();
         });
     }

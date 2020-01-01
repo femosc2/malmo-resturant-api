@@ -29,6 +29,7 @@ class ResturantImagesController extends Controller
 
         foreach($resturant_images as $resturant_image) {
             array_push($jsonResponse, [
+                    'id' => $resturant_image->id,
                     'image' => $resturant_image->image,
                     'resturant_id' => $resturant_image->resturant_id,
                     'reports' => $resturant_image->reports,
@@ -103,6 +104,15 @@ class ResturantImagesController extends Controller
         $resturant_image->resturant_id = $request->input('resturant_id');
 
         $resturant_image->save();
+
+        $jsonResponse = [];
+
+        array_push($jsonResponse, [
+            'image' => $request->input('image'),
+            'resturant_id' => $request->input('resturant_id'),
+        ]);
+
+        return $jsonResponse;
      }
 
     /**
@@ -161,6 +171,7 @@ class ResturantImagesController extends Controller
             $jsonResponse = [];
 
             array_push($jsonResponse, [
+                'id' => $resturant_image->id,
                 'image' => $resturant_image->image,
                 'resturant_id' => $resturant_image->resturant_id,
                 'reports' => $resturant_image->reports,
@@ -199,10 +210,46 @@ class ResturantImagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+   /** @OA\Delete(
+        *     path="/api/resturantimages/delete/{id}",
+        *     description="Delete a specific resturant image",
+        *     tags={"Resturant Images"},
+        *     @OA\Response(response="default", description="Delete a specific resturant images"),
+        * @OA\Parameter(
+        *         description="Id of resturant image",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        *  @OA\Parameter(
+     *         description="Api Token",
+     *         name="token",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="file"
+     *         ),
+     *     ),
+        * )
+        */
+        public function destroy(Request $request)
+        {
+            $level_2_tokens = ApiToken::where('level', '=', 2)->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $level_2_tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
+            ResturantImage::find($request->id)->delete();
+
+            return ['Resturant Image Deleted'];
+
+        }
 
     /** @OA\Put(
         *     path="/api/resturantimages/report/{id}",
