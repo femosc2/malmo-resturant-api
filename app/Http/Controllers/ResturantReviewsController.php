@@ -38,6 +38,7 @@ class ResturantReviewsController extends Controller
         foreach($resturant_reviews as $resturant_review) {
             $resturant_name = Resturant::find($resturant_review->resturant_id)->name;
             array_push($jsonResponse, [
+                    'id' => $resturant_review->id,
                     'reviewer' => $resturant_review->reviewer,
                     'review' => $resturant_review->review,
                     'rating' => $resturant_review->rating,
@@ -204,6 +205,7 @@ class ResturantReviewsController extends Controller
         $resturant_name = Resturant::find($resturant_review->resturant_id)->name;
 
         array_push($jsonResponse, [
+                'id' => $resturant_review->id,
                 'reviwer' => $resturant_review->reviewer,
                 'review' => $resturant_review->review,
                 'rating' => $resturant_review->rating,
@@ -240,15 +242,36 @@ class ResturantReviewsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    /** @OA\Delete(
+        *     path="/api/resturantreviews/delete/{id}",
+        *     description="Delete a specific resturant review",
+        *     tags={"Resturant Reviews"},
+        *     @OA\Response(response="default", description="Delete a specific resturant reviews"),
+        * @OA\Parameter(
+        *         description="Id of resturant review",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function destroy(Request $request)
+        {
+            $level_2_tokens = ApiToken::where('level', '=', 2)->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $level_2_tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
+            ResturantReview::find($request->id)->delete();
+
+            return ['Resturant Review Deleted'];
+
+        }
 
     /** @OA\Put(
         *     path="/api/resturantreviews/report/{id}",

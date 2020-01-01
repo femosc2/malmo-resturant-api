@@ -246,10 +246,36 @@ class ItemReviewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    /** @OA\Delete(
+        *     path="/api/itemsreviews/delete/{id}",
+        *     description="Delete a specific item review",
+        *     tags={"Item Reviews"},
+        *     @OA\Response(response="default", description="Delete a specific item review"),
+        * @OA\Parameter(
+        *         description="Id of item",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function destroy(Request $request)
+        {
+            $level_2_tokens = ApiToken::where('level', '=', 2)->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $level_2_tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
+            ItemReview::find($request->id)->delete();
+
+            return ['Item review deleted'];
+
+        }
 
     /** @OA\Put(
         *     path="/api/itemreviews/report/{id}",

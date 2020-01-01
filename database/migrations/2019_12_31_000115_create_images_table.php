@@ -19,7 +19,7 @@ class CreateImagesTable extends Migration
             $table->integer('reports')->unsigned()->default(0);
             $table->boolean('is_bad')->unsigned()->default(False);
             $table->unsignedBigInteger('resturant_id');
-            $table->foreign('resturant_id')->references('id')->on('resturants');
+            $table->foreign('resturant_id')->references('id')->on('resturants')->onDelete('cascade');
             $table->timestamps();
         });
 

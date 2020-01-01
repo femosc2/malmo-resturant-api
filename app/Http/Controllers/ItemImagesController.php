@@ -195,16 +195,36 @@ class ItemImagesController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   /** @OA\Delete(
+        *     path="/api/itemimages/delete/{id}",
+        *     description="Delete a specific item",
+        *     tags={"Item Images"},
+        *     @OA\Response(response="default", description="Delete a specific item images"),
+        * @OA\Parameter(
+        *         description="Id of item images",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function destroy(Request $request)
+        {
+            $level_2_tokens = ApiToken::where('level', '=', 2)->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $level_2_tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
+            ItemImage::find($request->id)->delete();
+
+            return ['Item image deleted'];
+
+        }
 
     /** @OA\Put(
         *     path="/api/itemimages/report/{id}",

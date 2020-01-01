@@ -62,8 +62,8 @@ class ApiTokenController extends Controller
      *     tags={"Tokens"},
      *     @OA\Response(response="default", description="Create a new superuser api token"),
      *  @OA\Parameter(
-     *         description="Api Token",
-     *         name="token",
+     *         description="key",
+     *         name="key",
      *         in="query",
      *         required=true,
      *         @OA\Schema(
@@ -75,10 +75,8 @@ class ApiTokenController extends Controller
      */
     public function create_superuser_token(Request $request)
     {
-        $level_2_tokens = ApiToken::where('level', '=', 2)->pluck('key')->toArray();
-
-        if (!in_array($request->input('token'),  $level_2_tokens)) {
-            return abort(401, 'Not authorized');
+        if (!$request->key == env('SUPER_ADMIN_KEY')) {
+            return abort(401, 'You are not authorized');
         }
 
         $api_token = new ApiToken;

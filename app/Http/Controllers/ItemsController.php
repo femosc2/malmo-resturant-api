@@ -237,9 +237,35 @@ class ItemsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function destroy($id)
+     /** @OA\Delete(
+        *     path="/api/items/delete/{id}",
+        *     description="Delete a specific item",
+        *     tags={"Items"},
+        *     @OA\Response(response="default", description="Delete a specific item"),
+        * @OA\Parameter(
+        *         description="Id of item",
+        *         name="id",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="integer",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+    public function destroy(Request $request)
     {
-        //
+        $level_2_tokens = ApiToken::where('level', '=', 2)->pluck('key')->toArray();
+
+        if (!in_array($request->input('token'),  $level_2_tokens)) {
+            return abort(401, 'Not authorized');
+        }
+
+        Item::find($request->id)->delete();
+
+        return ['Item deleted'];
+
     }
 
     /** @OA\Put(

@@ -40,9 +40,9 @@
                 "operationId": "App\\Http\\Controllers\\ApiTokenController::create_superuser_token",
                 "parameters": [
                     {
-                        "name": "token",
+                        "name": "key",
                         "in": "query",
-                        "description": "Api Token",
+                        "description": "key",
                         "required": true,
                         "schema": {
                             "type": "string",
@@ -505,6 +505,32 @@
                 "responses": {
                     "default": {
                         "description": "Get a specific item"
+                    }
+                }
+            }
+        },
+        "/api/items/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "Delete a specific item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific item"
                     }
                 }
             }
