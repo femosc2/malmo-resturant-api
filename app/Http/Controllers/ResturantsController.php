@@ -230,6 +230,16 @@ class ResturantsController extends Controller
         *             format="file"
         *         ),
         *     ),
+        *  @OA\Parameter(
+     *         description="Api Token",
+     *         name="token",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="file"
+     *         ),
+     *     ),
         * )
         */
         public function destroy(Request $request)

@@ -98,11 +98,6 @@ class ItemImagesController extends Controller
 
         $item_image = new ItemImage;
 
-        $request->validate([
-            'image' => 'required',
-            'item_id' => 'required',
-        ]);
-
         $item_image->image = $request->input('image');
         $item_image->item_id = $request->input('item_id');
 
@@ -111,8 +106,8 @@ class ItemImagesController extends Controller
         $jsonResponse = [];
 
         array_push($jsonResponse, [
-            'image' => $item_image->reviewer,
-            'item_id' => $item_image->review,
+            'image' => $request->input('image'),
+            'item_id' => $request->input('item_id'),
         ]);
 
         return $jsonResponse;
@@ -210,6 +205,16 @@ class ItemImagesController extends Controller
         *             format="file"
         *         ),
         *     ),
+        *  @OA\Parameter(
+     *         description="Api Token",
+     *         name="token",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="file"
+     *         ),
+     *     ),
         * )
         */
         public function destroy(Request $request)
