@@ -1,0 +1,1305 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Malmö Resturant Api",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/tokens/authorized": {
+            "get": {
+                "tags": [
+                    "Tokens"
+                ],
+                "description": "Create an authorized api token.",
+                "operationId": "App\\Http\\Controllers\\ApiTokenController::create_authorized_token",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new authorized api token"
+                    }
+                }
+            }
+        },
+        "/api/tokens/superuser": {
+            "get": {
+                "tags": [
+                    "Tokens"
+                ],
+                "description": "Create a superuser api token.",
+                "operationId": "App\\Http\\Controllers\\ApiTokenController::create_superuser_token",
+                "parameters": [
+                    {
+                        "name": "key",
+                        "in": "query",
+                        "description": "key",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new superuser api token"
+                    }
+                }
+            }
+        },
+        "/api/itemimages": {
+            "get": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Get all Item Images",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Item Images"
+                    }
+                }
+            }
+        },
+        "/api/itemimages/new": {
+            "post": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Create a new item image",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::create",
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Url to an image",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "query",
+                        "description": "item_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new item image"
+                    }
+                }
+            }
+        },
+        "/api/itemimages/{id}": {
+            "get": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Get a specific item image",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific item image"
+                    }
+                }
+            }
+        },
+        "/api/itemimages/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Delete a specific item",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item images",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific item images"
+                    }
+                }
+            }
+        },
+        "/api/itemimages/report/{id}": {
+            "put": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "Report an item image",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an item review"
+                    }
+                }
+            }
+        },
+        "/api/itemimages/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Item Images"
+                ],
+                "description": "unreport an item review",
+                "operationId": "App\\Http\\Controllers\\ItemImagesController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item reviews",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an item review"
+                    }
+                }
+            }
+        },
+        "/api/itemreviews": {
+            "get": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "Get all Item Reviews",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Item Reviews"
+                    }
+                }
+            }
+        },
+        "/api/itemreviews/new": {
+            "post": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "Create a new Item Review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::create",
+                "parameters": [
+                    {
+                        "name": "reviewer",
+                        "in": "query",
+                        "description": "Name of Reviewer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "rating",
+                        "in": "query",
+                        "description": "Rating of Item (0-10)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "review",
+                        "in": "query",
+                        "description": "Review of Item",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "item_id",
+                        "in": "query",
+                        "description": "Id of Item it belongs to.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new Item Review"
+                    }
+                }
+            }
+        },
+        "/api/itemreviews/{id}": {
+            "get": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "Get a specific item review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific item review"
+                    }
+                }
+            }
+        },
+        "/api/itemreviews/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "Delete a specific item review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific item review"
+                    }
+                }
+            }
+        },
+        "/api/itemreviews/report/{id}": {
+            "put": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "Report an item review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an item review"
+                    }
+                }
+            }
+        },
+        "/api/itemreviews/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Item Reviews"
+                ],
+                "description": "unreport an item review",
+                "operationId": "App\\Http\\Controllers\\ItemReviewsController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item reviews",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an item review"
+                    }
+                }
+            }
+        },
+        "/api/items": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "Get all Items",
+                "operationId": "App\\Http\\Controllers\\ItemsController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Items"
+                    }
+                }
+            }
+        },
+        "/api/items/new": {
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "Create a new Item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::create",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of Item",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type of Item",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "in": "query",
+                        "description": "Price of Item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "resturant_id",
+                        "in": "query",
+                        "description": "Id of Resturant it belongs to.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new resturant"
+                    }
+                }
+            }
+        },
+        "/api/items/{id}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "Get a specific item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific item"
+                    }
+                }
+            }
+        },
+        "/api/items/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "Delete a specific item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific item"
+                    }
+                }
+            }
+        },
+        "/api/items/report/{id}": {
+            "put": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "Report an item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an item"
+                    }
+                }
+            }
+        },
+        "/api/items/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "unreport an item",
+                "operationId": "App\\Http\\Controllers\\ItemsController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an item"
+                    }
+                }
+            }
+        },
+        "/api/resturantimages": {
+            "get": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Get all Resturant Images",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Resturant Images"
+                    }
+                }
+            }
+        },
+        "/api/resturantimages/new": {
+            "post": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Create a new resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::create",
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Url to an image",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "resturant_id",
+                        "in": "query",
+                        "description": "resturant_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new resturant image"
+                    }
+                }
+            }
+        },
+        "/api/resturantimages/{id}": {
+            "get": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Get a specific resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific resturant image"
+                    }
+                }
+            }
+        },
+        "/api/resturantimages/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Delete a specific resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific resturant images"
+                    }
+                }
+            }
+        },
+        "/api/resturantimages/report/{id}": {
+            "put": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "Report an resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of Resturant image",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an Resturant image"
+                    }
+                }
+            }
+        },
+        "/api/resturantimages/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Resturant Images"
+                ],
+                "description": "unreport an item review",
+                "operationId": "App\\Http\\Controllers\\ResturantImagesController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item reviews",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an item review"
+                    }
+                }
+            }
+        },
+        "/api/resturantreviews": {
+            "get": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
+                "description": "Get all Resturant Reviews",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Resturant Reviews"
+                    }
+                }
+            }
+        },
+        "/api/resturantreviews/new": {
+            "post": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
+                "description": "Create a new Resturant Review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::create",
+                "parameters": [
+                    {
+                        "name": "reviewer",
+                        "in": "query",
+                        "description": "Name of Reviewer",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "rating",
+                        "in": "query",
+                        "description": "Rating of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "review",
+                        "in": "query",
+                        "description": "Review of Resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "resturant_id",
+                        "in": "query",
+                        "description": "Id of resturant it belongs to.",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new Resturant Review"
+                    }
+                }
+            }
+        },
+        "/api/resturantreviews/{id}": {
+            "get": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
+                "description": "Get a specific resturant review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific resturant review"
+                    }
+                }
+            }
+        },
+        "/api/resturantreviews/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
+                "description": "Delete a specific resturant review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific resturant reviews"
+                    }
+                }
+            }
+        },
+        "/api/resturantreviews/report/{id}": {
+            "put": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
+                "description": "Report a Resturant Review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of Resturant Review",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report an item"
+                    }
+                }
+            }
+        },
+        "/api/resturantreviews/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Resturant Reviews"
+                ],
+                "description": "unreport an Resturant Review",
+                "operationId": "App\\Http\\Controllers\\ResturantReviewsController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of item",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport an Resturant Review"
+                    }
+                }
+            }
+        },
+        "/api/resturants": {
+            "get": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "Get all Resturants",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::index",
+                "responses": {
+                    "default": {
+                        "description": "Get all Resturants"
+                    }
+                }
+            }
+        },
+        "/api/resturants/new": {
+            "post": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "Create a new resturant",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::create",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of Resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "description": "Location of Resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new resturant"
+                    }
+                }
+            }
+        },
+        "/api/resturants/{id}": {
+            "get": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "Get a specific resturant",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get a specific resturant"
+                    }
+                }
+            }
+        },
+        "/api/resturants/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "Delete a specific resturant image",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Delete a specific resturant"
+                    }
+                }
+            }
+        },
+        "/api/resturants/report/{id}": {
+            "put": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "Report a Resturant",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::report",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of Resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Report a Resturant"
+                    }
+                }
+            }
+        },
+        "/api/resturants/unreport/{id}": {
+            "put": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "unreport a Resturant",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::unreport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Id of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "unreport a Resturant"
+                    }
+                }
+            }
+        }
+    }
+}
