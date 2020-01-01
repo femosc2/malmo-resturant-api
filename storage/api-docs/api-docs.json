@@ -479,7 +479,7 @@
                 }
             }
         },
-        "/api/resturantsimages/{id}": {
+        "/api/resturantimages/{id}": {
             "get": {
                 "tags": [
                     "Resturant Images"

@@ -23,6 +23,9 @@ class ItemImagesController extends Controller
     public function index()
     {
         $item_images = ItemImage::all();
+        if ($item_images == null) {
+            return abort(400, 'There exists no Item images');
+        }
 
         $jsonResponse = [];
 
@@ -80,6 +83,15 @@ class ItemImagesController extends Controller
         $item_image->item_id = $request->input('item_id');
 
         $item_image->save();
+
+        $jsonResponse = [];
+
+        array_push($jsonResponse, [
+            'image' => $item_image->reviewer,
+            'item_id' => $item_image->review,
+        ]);
+
+            return $jsonResponse;
      }
 
     /**
@@ -120,9 +132,13 @@ class ItemImagesController extends Controller
         {
 
             $item_image = ItemImage::find($request->id);
+            if ($item_image == null) {
+                return abort(400, 'There exists no item image with this id.');
+            }
             $jsonResponse = [];
 
             array_push($jsonResponse, [
+                'id' => $item_image->id,
                 'image' => $item_image->image,
                 'item_id' => $item_image->item_id,
                 'reports' => $item_image->reports,
@@ -186,6 +202,9 @@ class ItemImagesController extends Controller
         public function report(Request $request)
         {
             $item_image = ItemImage::find($request->id);
+            if ($item_image == null) {
+                return abort(400, 'There exists no item image with this id.');
+            }
 
             $item_image->reports++;
 
@@ -226,6 +245,9 @@ class ItemImagesController extends Controller
         public function unreport(Request $request)
         {
             $item_image = ItemImage::find($request->id);
+            if ($item_image == null) {
+                return abort(400, 'There exists no item image with this id.');
+            }
 
             if(!$item_image->reports <= 0) {
                 $item_image->reports--;

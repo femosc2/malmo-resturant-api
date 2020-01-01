@@ -100,7 +100,7 @@ class ResturantImagesController extends Controller
      * @return \Illuminate\Http\Response
      */
     /** @OA\Get(
-        *     path="/api/resturantsimages/{id}",
+        *     path="/api/resturantimages/{id}",
         *     description="Get a specific resturant image",
         *     tags={"Resturant Images"},
         *     @OA\Response(response="default", description="Get a specific resturant image"),
@@ -120,6 +120,11 @@ class ResturantImagesController extends Controller
         {
 
             $resturant_image = ResturantImage::find($request->id);
+
+            if ($resturant_image == null) {
+                return abort(400, 'There exists no image with this ID');
+            };
+
             $jsonResponse = [];
 
             array_push($jsonResponse, [
@@ -186,6 +191,11 @@ class ResturantImagesController extends Controller
         public function report(Request $request)
         {
             $resturant_image= ResturantImage::find($request->id);
+
+            if ($resturant_image == null) {
+                return abort(400, 'There exists no image with this ID');
+            };
+
             $resturant_image->reports++;
 
             if($resturant_image->reports > 20) {
@@ -225,6 +235,10 @@ class ResturantImagesController extends Controller
         public function unreport(Request $request)
         {
             $resturant_image = ResturantImage::find($request->id);
+
+            if ($resturant_image == null) {
+                return abort(400, 'There exists no image with this ID');
+            };
 
             if(!$resturant_image->reports <= 0) {
                 $resturant_image->reports--;
