@@ -7,7 +7,7 @@ Route::get('/tokens/authorized', 'ApiTokenController@create_authorized_token');
 Route::get('/tokens/superuser', 'ApiTokenController@create_superuser_token');
 
 //Resturants
-Route::delete('/resturants/delete/{id}', 'ResturantController@destroy');
+Route::delete('/resturants/delete/{id}', 'ResturantsController@destroy');
 Route::get('/resturants', 'ResturantsController@index');
 Route::get('/resturants/{id}', 'ResturantsController@show');
 Route::post('/resturants/new', 'ResturantsController@create');
@@ -34,7 +34,7 @@ Route::put('/itemreviews/unreport/{id}', 'ItemReviewsController@unreport');
 
 
 // Resturant Reviews
-Route::delete('/itemreviews/delete/{id}', 'ItemReviewsController@destroy');
+Route::delete('/resturantreviews/delete/{id}', 'ResturantReviewsController@destroy');
 Route::post('/resturantreviews/new', 'ResturantReviewsController@create');
 Route::get('/resturantreviews', 'ResturantReviewsController@index');
 Route::get('/resturantreviews/{id}', 'ResturantReviewsController@show');

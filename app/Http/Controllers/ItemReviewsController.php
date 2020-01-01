@@ -247,12 +247,12 @@ class ItemReviewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     /** @OA\Delete(
-        *     path="/api/itemsreviews/delete/{id}",
+        *     path="/api/itemreviews/delete/{id}",
         *     description="Delete a specific item review",
         *     tags={"Item Reviews"},
         *     @OA\Response(response="default", description="Delete a specific item review"),
         * @OA\Parameter(
-        *         description="Id of item",
+        *         description="Id of item review",
         *         name="id",
         *         in="query",
         *         required=true,

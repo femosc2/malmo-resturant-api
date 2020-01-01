@@ -19,7 +19,7 @@ class CreateResturantReviewTable extends Migration
             $table->integer('rating')->unsigned();
             $table->string('review', 1000);
             $table->unsignedBigInteger('resturant_id');
-            $table->foreign('resturant_id')->references('id')->on('resturants')->onDelete('cascade');
+            $table->foreign('resturant_id')->references('id')->on('resturants');
             $table->timestamps();
         });
     }

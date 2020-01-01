@@ -160,6 +160,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -347,7 +357,7 @@
                 }
             }
         },
-        "/api/itemsreviews/delete/{id}": {
+        "/api/itemreviews/delete/{id}": {
             "delete": {
                 "tags": [
                     "Item Reviews"
@@ -358,10 +368,20 @@
                     {
                         "name": "id",
                         "in": "query",
-                        "description": "Id of item",
+                        "description": "Id of item review",
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }
@@ -578,6 +598,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -770,6 +800,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }
@@ -976,6 +1016,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -1146,7 +1196,7 @@
         "/api/resturants/delete/{id}": {
             "delete": {
                 "tags": [
-                    "Resturant"
+                    "Resturants"
                 ],
                 "description": "Delete a specific resturant image",
                 "operationId": "App\\Http\\Controllers\\ResturantsController::destroy",
@@ -1158,6 +1208,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }

@@ -104,6 +104,15 @@ class ResturantImagesController extends Controller
         $resturant_image->resturant_id = $request->input('resturant_id');
 
         $resturant_image->save();
+
+        $jsonResponse = [];
+
+        array_push($jsonResponse, [
+            'image' => $request->input('image'),
+            'resturant_id' => $request->input('resturant_id'),
+        ]);
+
+        return $jsonResponse;
      }
 
     /**

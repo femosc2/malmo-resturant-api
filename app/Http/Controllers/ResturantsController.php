@@ -218,7 +218,7 @@ class ResturantsController extends Controller
     /** @OA\Delete(
         *     path="/api/resturants/delete/{id}",
         *     description="Delete a specific resturant image",
-        *     tags={"Resturant"},
+        *     tags={"Resturants"},
         *     @OA\Response(response="default", description="Delete a specific resturant"),
         * @OA\Parameter(
         *         description="Id of resturant",

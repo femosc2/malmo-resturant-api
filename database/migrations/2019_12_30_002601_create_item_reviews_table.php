@@ -19,7 +19,7 @@ class CreateItemReviewsTable extends Migration
             $table->integer('rating')->unsigned();
             $table->string('review', 1000);
             $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->foreign('item_id')->references('id')->on('items');
             $table->timestamps();
         });
     }
