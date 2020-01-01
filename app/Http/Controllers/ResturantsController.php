@@ -32,6 +32,7 @@ class ResturantsController extends Controller
 
             $jsonResponse = [];
 
+
             foreach($resturants as $resturant) {
                 array_push($jsonResponse, [
                         'id' => $resturant->id,
