@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 
+//Tokens
+Route::get('/tokens/authorized', 'ApiTokenController@create_authorized_token');
+Route::get('/tokens/superuser', 'ApiTokenController@create_superuser_token');
+
 //Resturants
 Route::get('/resturants', 'ResturantsController@index');
 Route::get('/resturants/{id}', 'ResturantsController@show');

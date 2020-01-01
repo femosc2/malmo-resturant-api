@@ -5,6 +5,58 @@
         "version": "0.1"
     },
     "paths": {
+        "/api/tokens/authorized": {
+            "get": {
+                "tags": [
+                    "Tokens"
+                ],
+                "description": "Create an authorized api token.",
+                "operationId": "App\\Http\\Controllers\\ApiTokenController::create_authorized_token",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new authorized api token"
+                    }
+                }
+            }
+        },
+        "/api/tokens/superuser": {
+            "get": {
+                "tags": [
+                    "Tokens"
+                ],
+                "description": "Create a superuser api token.",
+                "operationId": "App\\Http\\Controllers\\ApiTokenController::create_superuser_token",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Create a new superuser api token"
+                    }
+                }
+            }
+        },
         "/api/itemimages": {
             "get": {
                 "tags": [
@@ -44,6 +96,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }
@@ -98,6 +160,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -122,6 +194,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }
@@ -270,6 +352,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }

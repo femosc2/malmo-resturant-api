@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Resturant;
 use App\Item;
 use App\ResturantReview;
+use App\ApiToken;
 
 class ResturantReviewsController extends Controller
 {
@@ -99,6 +100,12 @@ class ResturantReviewsController extends Controller
      */
     public function create(Request $request)
     {
+        $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
         $resturant_review = new ResturantReview;
 
         $request->validate([
@@ -252,6 +259,12 @@ class ResturantReviewsController extends Controller
         */
         public function report(Request $request)
         {
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
             $resturant_review = ResturantReview::find($request->id);
 
             if ($resturant_review == null) {
@@ -296,6 +309,12 @@ class ResturantReviewsController extends Controller
             */
         public function unreport(Request $request)
         {
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
             $resturant_review = ResturantReview::find($request->id);
             if ($resturant_review == null) {
                 return abort(400, 'There exists no resturant review with this id.');

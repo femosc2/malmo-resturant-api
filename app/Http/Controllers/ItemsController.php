@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Resturant;
 use App\Item;
+use App\ApiToken;
 
 class ItemsController extends Controller
 {
@@ -103,6 +104,11 @@ class ItemsController extends Controller
      */
     public function create(Request $request)
     {
+        $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
         $item = new Item;
 
         $request->validate([
@@ -245,6 +251,13 @@ class ItemsController extends Controller
         */
     public function report(Request $request)
     {
+
+        $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
         $item = Item::find($request->id);
         if ($item == null) {
             return abort(400, 'There exists no item with this id');
@@ -287,6 +300,12 @@ class ItemsController extends Controller
         */
     public function unreport(Request $request)
     {
+        $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
         $item = Item::find($request->id);
         if ($item == null) {
             return abort(400, 'There exists no item with this id');
