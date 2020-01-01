@@ -27,6 +27,9 @@ class ItemReviewsController extends Controller
     public function index()
     {
         $item_reviews = ItemReview::all();
+        if (sizeof($item_reviews) == 0) {
+            return abort(400, 'There exists no item reviews');
+        }
 
         $jsonResponse = [];
 
@@ -34,6 +37,7 @@ class ItemReviewsController extends Controller
             $item = Item::find($item_review->item_id);
             $resturant_name = Resturant::find($item->resturant_id)->name;
             array_push($jsonResponse, [
+                    'id' => $item_review->id,
                     'reviewer' => $item_review->reviewer,
                     'review' => $item_review->review,
                     'rating' => $item_review->rating,
@@ -98,6 +102,13 @@ class ItemReviewsController extends Controller
     public function create(Request $request)
     {
         $item_review = new ItemReview;
+
+        $request->validate([
+            'reviewer' => 'required',
+            'rating' => 'required',
+            'review' => 'required',
+            'item_id' => 'required',
+        ]);
 
         $item_review->reviewer = $request->input('reviewer');
         $item_review->rating = $request->input('rating');
@@ -175,6 +186,7 @@ class ItemReviewsController extends Controller
         $resturant_name = Resturant::find($item->resturant_id)->name;
 
         array_push($jsonResponse, [
+                'id' => $item_review->id,
                 'reviwer' => $item_review->reviewer,
                 'review' => $item_review->review,
                 'rating' => $item_review->rating,
@@ -242,6 +254,9 @@ class ItemReviewsController extends Controller
         public function report(Request $request)
         {
             $item_review = ItemReview::find($request->id);
+            if ($item_review == null) {
+                return abort(400, 'There exists no Item Review with this id');
+            }
             $item_review->reports++;
 
             if($item_review->reports > 20) {
@@ -281,6 +296,9 @@ class ItemReviewsController extends Controller
         public function unreport(Request $request)
         {
             $item_review = ItemReview::find($request->id);
+            if ($item_review == null) {
+                return abort(400, 'There exists no Item Review with this id');
+            }
 
             if(!$item_review->reports <= 0) {
                 $item_review->reports--;

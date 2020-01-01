@@ -25,11 +25,15 @@ class ResturantsController extends Controller
     public function index()
     {
             $resturants = Resturant::all();
+            if (sizeof(resturants) == 0) {
+                return abort(400, "There is no resturants in the database.");
+            }
 
             $jsonResponse = [];
 
             foreach($resturants as $resturant) {
                 array_push($jsonResponse, [
+                        'id' => $resturant->id,
                         'name' => $resturant->name,
                         'location' => $resturant->location,
                         'rating' => $resturant->rating,
@@ -78,6 +82,11 @@ class ResturantsController extends Controller
     {
         $resturant = new Resturant;
 
+        $request->validate([
+            'name' => 'required',
+            'location' => 'required',
+        ]);
+
         $resturant->name = $request->input('name');
         $resturant->location = $request->input('location');
 
@@ -86,9 +95,9 @@ class ResturantsController extends Controller
 
         $response = json_decode($response);
 
-        if(($response->results[0]->address_components[1]->long_name == 'Malmö')
-        || ($response->results[0]->address_components[2]->long_name == 'Malmö')
-        || ($response->results[0]->address_components[3]->long_name == 'Malmö') ) {
+        if (($response->results[0]->address_components[1]->long_name == 'Malmö')
+            || ($response->results[0]->address_components[2]->long_name == 'Malmö')
+            || ($response->results[0]->address_components[3]->long_name == 'Malmö') ) {
             $resturant->save();
 
             $jsonResponse = [];
@@ -100,7 +109,7 @@ class ResturantsController extends Controller
 
             return $jsonResponse;
         } else {
-            return 'This resturant is not located in Malmö';
+            return abort(400, "This resturant is not located in Malmö.");
         }
 
     }
@@ -144,6 +153,11 @@ class ResturantsController extends Controller
     {
 
         $resturant = Resturant::find($request->id);
+
+        if ($resturant == null) {
+            return abort(400, 'There exists no resturant with this id.');
+        }
+
         $jsonResponse = [];
 
         array_push($jsonResponse, [
@@ -209,8 +223,12 @@ class ResturantsController extends Controller
         public function report(Request $request)
         {
             $resturant = Resturant::find($request->id);
-            $resturant->reports++;
 
+            if ($resturant == null) {
+                return abort(400, 'There exists no resturant with this id.');
+            }
+
+            $resturant->reports++;
             if($resturant->reports > 20) {
                 $resturant->is_bad = True;
             }
@@ -248,6 +266,10 @@ class ResturantsController extends Controller
         public function unreport(Request $request)
         {
             $resturant = Resturant::find($request->id);
+
+            if ($resturant == null) {
+                return abort(400, 'This resturant does not exist.');
+            }
 
             if(!$resturant->reports <= 0) {
                 $resturant->reports--;

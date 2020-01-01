@@ -26,19 +26,24 @@ class ItemsController extends Controller
     {
         $items = Item::all();
 
+        if (sizeof($items) == 0) {
+            return abort(400, 'There exists no items.');
+        }
+
         $jsonResponse = [];
 
         foreach($items as $item) {
             $resturant_name = Resturant::find($item->resturant_id)->name;
             array_push($jsonResponse, [
-                    'name' => $item->name,
-                    'type' => $item->type,
-                    'price' => $item->price,
-                    'rating' => $item->rating,
-                    'resturant' => $resturant_name,
-                    'reports' => $item->reports,
-                    'is_bad' => $item->is_bad,
-                    ]);
+                'id' => $item->id,
+                'name' => $item->name,
+                'type' => $item->type,
+                'price' => $item->price,
+                'rating' => $item->rating,
+                'resturant' => $resturant_name,
+                'reports' => $item->reports,
+                'is_bad' => $item->is_bad,
+                ]);
         }
         return $jsonResponse;
     }
@@ -100,6 +105,13 @@ class ItemsController extends Controller
     {
         $item = new Item;
 
+        $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'price' => 'required',
+            'resturant_id' => 'required',
+        ]);
+
         $item->name = $request->input('name');
         $item->type = $request->input('type');
         $item->price = $request->input('price');
@@ -114,8 +126,6 @@ class ItemsController extends Controller
             'type' => $item->type,
             'price' => $item->price,
             'resturant' => $item->resturant_id,
-            'reports' => $item->reports,
-            'is_bad' => $item->is_bad,
             ]);
 
         return $jsonResponse;
@@ -159,9 +169,15 @@ class ItemsController extends Controller
     public function show(Request $request)
     {
         $item = Item::find($request->id);
+
+        if ($item == null) {
+            return abort(400, 'There exists no item with this ID.');
+        }
+
         $resturant_name = Resturant::find($item->resturant_id)->name;
 
         $jsonResponse = [
+            'id' => $item->id,
             'name' => $item->name,
             'type' => $item->type,
             'price' => $item->price,
@@ -230,6 +246,9 @@ class ItemsController extends Controller
     public function report(Request $request)
     {
         $item = Item::find($request->id);
+        if ($item == null) {
+            return abort(400, 'There exists no item with this id');
+        }
         $item->reports++;
 
         if($item->reports > 20) {
@@ -269,6 +288,9 @@ class ItemsController extends Controller
     public function unreport(Request $request)
     {
         $item = Item::find($request->id);
+        if ($item == null) {
+            return abort(400, 'There exists no item with this id');
+        }
         if(!$item->reports <= 0) {
             $item->reports--;
         } else {

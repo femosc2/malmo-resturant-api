@@ -28,6 +28,10 @@ class ResturantReviewsController extends Controller
     {
         $resturant_reviews = ResturantReview::all();
 
+        if (sizeof($resturants_reviews) == 0) {
+            return abort(400, 'There exists no resturant reviews');
+        };
+
         $jsonResponse = [];
 
         foreach($resturant_reviews as $resturant_review) {
@@ -96,6 +100,13 @@ class ResturantReviewsController extends Controller
     public function create(Request $request)
     {
         $resturant_review = new ResturantReview;
+
+        $request->validate([
+            'reviewer' => 'required',
+            'rating' => 'required',
+            'review' => 'required',
+            'resturant_id' => 'required',
+        ]);
 
         $resturant_review->reviewer = $request->input('reviewer');
         $resturant_review->rating = $request->input('rating');
@@ -168,6 +179,10 @@ class ResturantReviewsController extends Controller
     public function show(Request $request)
     {
         $resturant_review = ResturantReview::find($request->id);
+        if ($resturant_review == null) {
+            return abort(400, 'There exists no resturant review with this id');
+        };
+
         $jsonResponse = [];
         $resturant_name = Resturant::find($resturant_review->resturant_id)->name;
 
@@ -238,6 +253,11 @@ class ResturantReviewsController extends Controller
         public function report(Request $request)
         {
             $resturant_review = ResturantReview::find($request->id);
+
+            if ($resturant_review == null) {
+                return abort(400, 'There exists no resturant review with this id');
+            };
+
             $resturant_review->reports++;
 
             if($resturant_review->reports > 20) {
@@ -277,6 +297,9 @@ class ResturantReviewsController extends Controller
         public function unreport(Request $request)
         {
             $resturant_review = ResturantReview::find($request->id);
+            if ($resturant_review == null) {
+                return abort(400, 'There exists no resturant review with this id.');
+            };
             $resturant_review->reports--;
 
             if($resturant_review->reports <= 20) {
