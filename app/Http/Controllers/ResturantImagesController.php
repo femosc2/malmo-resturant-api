@@ -219,6 +219,16 @@ class ResturantImagesController extends Controller
         *             format="file"
         *         ),
         *     ),
+        *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
         * )
         */
         public function report(Request $request)
@@ -269,6 +279,16 @@ class ResturantImagesController extends Controller
             *             format="file"
             *         ),
             *     ),
+            *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
             * )
             */
         public function unreport(Request $request)

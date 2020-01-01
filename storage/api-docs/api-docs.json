@@ -276,6 +276,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -328,6 +338,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -352,6 +372,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     },
@@ -434,6 +464,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -486,6 +526,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -510,6 +560,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }
@@ -562,6 +622,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -586,6 +656,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }
@@ -614,6 +694,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -638,6 +728,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }
@@ -710,6 +810,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -762,6 +872,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -786,6 +906,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }
@@ -833,6 +963,16 @@
                         "name": "location",
                         "in": "query",
                         "description": "Location of Resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
                         "required": true,
                         "schema": {
                             "type": "string",
@@ -890,6 +1030,16 @@
                             "type": "integer",
                             "format": "file"
                         }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
                     }
                 ],
                 "responses": {
@@ -914,6 +1064,16 @@
                         "required": true,
                         "schema": {
                             "type": "integer",
+                            "format": "file"
+                        }
+                    },
+                    {
+                        "name": "token",
+                        "in": "query",
+                        "description": "Api Token",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
                             "format": "file"
                         }
                     }
