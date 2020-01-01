@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Resturant;
 use App\Item;
+use App\ApiToken;
 
 class ResturantsController extends Controller
 {
@@ -25,7 +26,7 @@ class ResturantsController extends Controller
     public function index()
     {
             $resturants = Resturant::all();
-            if (sizeof(resturants) == 0) {
+            if (sizeof($resturants) == 0) {
                 return abort(400, "There is no resturants in the database.");
             }
 
@@ -76,10 +77,26 @@ class ResturantsController extends Controller
      *             format="file"
      *         ),
      *     ),
+     *   @OA\Parameter(
+            *         description="Api Token",
+            *         name="token",
+            *         in="query",
+            *         required=true,
+            *         @OA\Schema(
+            *             type="string",
+            *             format="file"
+            *         ),
+            *     ),
      * )
      */
     public function create(Request $request)
     {
+        $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
         $resturant = new Resturant;
 
         $request->validate([
@@ -218,10 +235,26 @@ class ResturantsController extends Controller
         *             format="file"
         *         ),
         *     ),
+        *  @OA\Parameter(
+            *         description="Api Token",
+            *         name="token",
+            *         in="query",
+            *         required=true,
+            *         @OA\Schema(
+            *             type="string",
+            *             format="file"
+            *         ),
+            *     ),
         * )
         */
         public function report(Request $request)
         {
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
             $resturant = Resturant::find($request->id);
 
             if ($resturant == null) {
@@ -261,10 +294,26 @@ class ResturantsController extends Controller
             *             format="file"
             *         ),
             *     ),
+            *  @OA\Parameter(
+            *         description="Api Token",
+            *         name="token",
+            *         in="query",
+            *         required=true,
+            *         @OA\Schema(
+            *             type="string",
+            *             format="file"
+            *         ),
+            *     ),
             * )
             */
         public function unreport(Request $request)
         {
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
             $resturant = Resturant::find($request->id);
 
             if ($resturant == null) {

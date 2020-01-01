@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ResturantImage;
+use App\ApiToken;
 
 class ResturantImagesController extends Controller
 {
@@ -70,10 +71,27 @@ class ResturantImagesController extends Controller
      *             format="file"
      *         ),
      *     ),
+     *
+     *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
      * )
      */
     public function create(Request $request)
     {
+        $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
         $resturant_image = new ResturantImage;
 
         $request->validate([
@@ -119,6 +137,16 @@ class ResturantImagesController extends Controller
         *             format="file"
         *         ),
         *     ),
+        *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
         * )
         */
         public function show(Request $request)
@@ -191,10 +219,26 @@ class ResturantImagesController extends Controller
         *             format="file"
         *         ),
         *     ),
+        *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
         * )
         */
         public function report(Request $request)
         {
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
             $resturant_image= ResturantImage::find($request->id);
 
             if ($resturant_image == null) {
@@ -235,10 +279,26 @@ class ResturantImagesController extends Controller
             *             format="file"
             *         ),
             *     ),
+            *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
             * )
             */
         public function unreport(Request $request)
         {
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
             $resturant_image = ResturantImage::find($request->id);
 
             if ($resturant_image == null) {

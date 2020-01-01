@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\ItemImage;
+use App\ApiToken;
 
 class ItemImagesController extends Controller
 {
@@ -74,10 +75,27 @@ class ItemImagesController extends Controller
      *             format="file"
      *         ),
      *     ),
+     *  @OA\Parameter(
+     *         description="Api Token",
+     *         name="token",
+     *         in="query",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="string",
+     *             format="file"
+     *         ),
+     *     ),
      * )
      */
     public function create(Request $request)
     {
+
+        $tokens = ApiToken::all()->pluck('key')->toArray();
+
+        if (!in_array($request->input('token'),  $tokens)) {
+            return abort(401, 'Not authorized');
+        }
+
         $item_image = new ItemImage;
 
         $request->validate([
@@ -203,10 +221,26 @@ class ItemImagesController extends Controller
         *             format="file"
         *         ),
         *     ),
+        * @OA\Parameter(
+        *         description="Api Token",
+        *         name="token",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string",
+        *             format="file"
+        *         ),
+        *     ),
         * )
         */
         public function report(Request $request)
         {
+
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
             $item_image = ItemImage::find($request->id);
             if ($item_image == null) {
                 return abort(400, 'There exists no item image with this id.');
@@ -246,10 +280,26 @@ class ItemImagesController extends Controller
             *             format="file"
             *         ),
             *     ),
+            * @OA\Parameter(
+            *         description="Api Token",
+            *         name="token",
+            *         in="query",
+            *         required=true,
+            *         @OA\Schema(
+            *             type="string",
+            *             format="file"
+            *         ),
+            *     ),
             * )
             */
         public function unreport(Request $request)
         {
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
             $item_image = ItemImage::find($request->id);
             if ($item_image == null) {
                 return abort(400, 'There exists no item image with this id.');

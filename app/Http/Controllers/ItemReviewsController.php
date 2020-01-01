@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Resturant;
 use App\Item;
 use App\ItemReview;
+use App\ApiToken;
 
 class ItemReviewsController extends Controller
 {
@@ -97,10 +98,26 @@ class ItemReviewsController extends Controller
      *             format="file"
      *         ),
      *     ),
+     *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
      *  )
      */
     public function create(Request $request)
     {
+        $tokens = ApiToken::all()->pluck('key')->toArray();
+
+        if (!in_array($request->input('token'),  $tokens)) {
+            return abort(401, 'Not authorized');
+        }
+
         $item_review = new ItemReview;
 
         $request->validate([
@@ -249,10 +266,27 @@ class ItemReviewsController extends Controller
         *             format="file"
         *         ),
         *     ),
+        *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
         * )
         */
         public function report(Request $request)
         {
+
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
             $item_review = ItemReview::find($request->id);
             if ($item_review == null) {
                 return abort(400, 'There exists no Item Review with this id');
@@ -291,10 +325,36 @@ class ItemReviewsController extends Controller
             *             format="file"
             *         ),
             *     ),
+            * @OA\Parameter(
+            *         description="Api Token",
+            *         name="token",
+            *         in="query",
+            *         required=true,
+            *         @OA\Schema(
+            *             type="string",
+            *             format="file"
+            *         ),
+            *     ),
+            *   @OA\Parameter(
+    *         description="Api Token",
+    *         name="token",
+    *         in="query",
+    *         required=true,
+    *         @OA\Schema(
+    *             type="string",
+    *             format="file"
+    *         ),
+    *     ),
             * )
             */
         public function unreport(Request $request)
         {
+            $tokens = ApiToken::all()->pluck('key')->toArray();
+
+            if (!in_array($request->input('token'),  $tokens)) {
+                return abort(401, 'Not authorized');
+            }
+
             $item_review = ItemReview::find($request->id);
             if ($item_review == null) {
                 return abort(400, 'There exists no Item Review with this id');
