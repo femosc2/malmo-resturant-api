@@ -31,6 +31,7 @@ class ItemImagesController extends Controller
 
         foreach($item_images as $item_image) {
             array_push($jsonResponse, [
+                    'id' => $item_image->id,
                     'image' => $item_image->image,
                     'item_id' => $item_image->item_id,
                     'reports' => $item_image->reports,
@@ -79,6 +80,11 @@ class ItemImagesController extends Controller
     {
         $item_image = new ItemImage;
 
+        $request->validate([
+            'image' => 'required',
+            'item_id' => 'required',
+        ]);
+
         $item_image->image = $request->input('image');
         $item_image->item_id = $request->input('item_id');
 
@@ -91,7 +97,7 @@ class ItemImagesController extends Controller
             'item_id' => $item_image->review,
         ]);
 
-            return $jsonResponse;
+        return $jsonResponse;
      }
 
     /**

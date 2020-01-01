@@ -105,6 +105,13 @@ class ItemsController extends Controller
     {
         $item = new Item;
 
+        $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'price' => 'required',
+            'resturant_id' => 'required',
+        ]);
+
         $item->name = $request->input('name');
         $item->type = $request->input('type');
         $item->price = $request->input('price');
@@ -119,8 +126,6 @@ class ItemsController extends Controller
             'type' => $item->type,
             'price' => $item->price,
             'resturant' => $item->resturant_id,
-            'reports' => $item->reports,
-            'is_bad' => $item->is_bad,
             ]);
 
         return $jsonResponse;

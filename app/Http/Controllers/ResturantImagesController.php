@@ -76,6 +76,11 @@ class ResturantImagesController extends Controller
     {
         $resturant_image = new ResturantImage;
 
+        $request->validate([
+            'image' => 'required',
+            'resturant_id' => 'required',
+        ]);
+
         $resturant_image->image = $request->input('image');
         $resturant_image->resturant_id = $request->input('resturant_id');
 

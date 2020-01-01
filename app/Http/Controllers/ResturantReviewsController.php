@@ -101,6 +101,13 @@ class ResturantReviewsController extends Controller
     {
         $resturant_review = new ResturantReview;
 
+        $request->validate([
+            'reviewer' => 'required',
+            'rating' => 'required',
+            'review' => 'required',
+            'resturant_id' => 'required',
+        ]);
+
         $resturant_review->reviewer = $request->input('reviewer');
         $resturant_review->rating = $request->input('rating');
         $resturant_review->review = $request->input('review');

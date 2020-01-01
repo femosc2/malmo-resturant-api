@@ -33,6 +33,7 @@ class ResturantsController extends Controller
 
             foreach($resturants as $resturant) {
                 array_push($jsonResponse, [
+                        'id' => $resturant->id,
                         'name' => $resturant->name,
                         'location' => $resturant->location,
                         'rating' => $resturant->rating,
@@ -80,6 +81,11 @@ class ResturantsController extends Controller
     public function create(Request $request)
     {
         $resturant = new Resturant;
+
+        $request->validate([
+            'name' => 'required',
+            'location' => 'required',
+        ]);
 
         $resturant->name = $request->input('name');
         $resturant->location = $request->input('location');

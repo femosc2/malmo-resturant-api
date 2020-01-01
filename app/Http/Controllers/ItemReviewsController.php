@@ -103,6 +103,13 @@ class ItemReviewsController extends Controller
     {
         $item_review = new ItemReview;
 
+        $request->validate([
+            'reviewer' => 'required',
+            'rating' => 'required',
+            'review' => 'required',
+            'item_id' => 'required',
+        ]);
+
         $item_review->reviewer = $request->input('reviewer');
         $item_review->rating = $request->input('rating');
         $item_review->review = $request->input('review');
