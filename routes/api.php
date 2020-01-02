@@ -10,6 +10,8 @@ Route::get('/tokens/superuser', 'ApiTokenController@create_superuser_token');
 Route::delete('/resturants/delete/{id}', 'ResturantsController@destroy');
 Route::get('/resturants', 'ResturantsController@index');
 Route::get('/resturants/{id}', 'ResturantsController@show');
+Route::get('/resturants/by/name/{name}', 'ResturantsController@show_by_name');
+Route::get('/resturants/by/location/{location}', 'ResturantsController@show_by_location');
 Route::post('/resturants/new', 'ResturantsController@create');
 Route::put('/resturants/report/{id}', 'ResturantsController@report');
 Route::put('/resturants/unreport/{id}', 'ResturantsController@unreport');
@@ -21,6 +23,8 @@ Route::post('/items/new', 'ItemsController@create');
 Route::put('/items/report/{id}', 'ItemsController@report');
 Route::put('/items/unreport/{id}', 'ItemsController@unreport');
 Route::get('/items/{id}', 'ItemsController@show');
+Route::get('/items/by/name/{name}', 'ItemsController@show_by_name');
+Route::get('/items/by/type/{name}', 'ItemsController@show_by_type');
 Route::get('/items', 'ItemsController@index');
 
 

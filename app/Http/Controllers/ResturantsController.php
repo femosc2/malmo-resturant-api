@@ -189,6 +189,88 @@ class ResturantsController extends Controller
         return $jsonResponse;
     }
 
+    /** @OA\Get(
+        *     path="/api/resturants/by/name/{name}",
+        *     description="Show resturants by name",
+        *     tags={"Resturants"},
+        *     @OA\Response(response="default", description="Get resturants by name"),
+        * @OA\Parameter(
+        *         description="Name of resturant",
+        *         name="name",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function show_by_name(Request $request)
+        {
+            $resturants = Resturant::where('name',$request->name)->get();
+
+            if ($resturants == null || sizeof($resturants) == 0) {
+                return abort(400, 'There exists no resturants with this name.');
+            }
+
+            $jsonResponse = [];
+
+            foreach($resturants as $resturant) {
+                array_push($jsonResponse, [
+                'id' => $resturant->id,
+                'name' => $resturant->name,
+                'location' => $resturant->location,
+                'rating' => $resturant->rating,
+                'reports' => $resturant->reports,
+                'is_bad' => $resturant->is_bad,
+                ]);
+            }
+            return $jsonResponse;
+
+        }
+
+        /** @OA\Get(
+        *     path="/api/resturants/by/location/{location}",
+        *     description="Show resturants by location",
+        *     tags={"Resturants"},
+        *     @OA\Response(response="default", description="Get resturants by location"),
+        * @OA\Parameter(
+        *         description="Location of resturant",
+        *         name="location",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function show_by_location(Request $request)
+        {
+            $resturants = Resturant::where('location',$request->location)->get();
+
+            if ($resturants == null || sizeof($resturants) == 0) {
+                return abort(400, 'There exists no resturants with this name.');
+            }
+
+            $jsonResponse = [];
+
+            foreach($resturants as $resturant) {
+                array_push($jsonResponse, [
+                'id' => $resturant->id,
+                'name' => $resturant->name,
+                'location' => $resturant->location,
+                'rating' => $resturant->rating,
+                'reports' => $resturant->reports,
+                'is_bad' => $resturant->is_bad,
+                ]);
+            }
+            return $jsonResponse;
+
+        }
+
     /**
      * Show the form for editing the specified resource.
      *
