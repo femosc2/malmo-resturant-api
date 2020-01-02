@@ -38,6 +38,8 @@ class ResturantsController extends Controller
                         'id' => $resturant->id,
                         'name' => $resturant->name,
                         'location' => $resturant->location,
+                        'lat' => $resturant->lat,
+                        'lng' => $resturant->lng,
                         'rating' => $resturant->rating,
                         'reports' => $resturant->reports,
                         'is_bad' => $resturant->is_bad,
@@ -113,9 +115,16 @@ class ResturantsController extends Controller
 
         $response = json_decode($response);
 
+        print_r($response->results[0]->geometry->location->lat);
+
         if (($response->results[0]->address_components[1]->long_name == 'Malmö')
             || ($response->results[0]->address_components[2]->long_name == 'Malmö')
             || ($response->results[0]->address_components[3]->long_name == 'Malmö') ) {
+
+            $resturant->location = $response->results[0]->formatted_address;
+            $resturant->lat = $response->results[0]->geometry->location->lat;
+            $resturant->lng = $response->results[0]->geometry->location->lng;
+
             $resturant->save();
 
             $jsonResponse = [];
@@ -123,6 +132,8 @@ class ResturantsController extends Controller
             array_push($jsonResponse, [
                 'name' => $resturant->name,
                 'location' => $resturant->location,
+                'lat' => $resturant->lat,
+                'lng' => $resturant->lng,
                 ]);
 
             return $jsonResponse;
@@ -179,8 +190,11 @@ class ResturantsController extends Controller
         $jsonResponse = [];
 
         array_push($jsonResponse, [
+            'id' => $resturant->id,
             'name' => $resturant->name,
             'location' => $resturant->location,
+            'lat' => $resturant->lat,
+            'lng' => $resturant->lng,
             'rating' => $resturant->rating,
             'reports' => $resturant->reports,
             'is_bad' => $resturant->is_bad,
@@ -221,6 +235,8 @@ class ResturantsController extends Controller
                 'id' => $resturant->id,
                 'name' => $resturant->name,
                 'location' => $resturant->location,
+                'lat' => $resturant->lat,
+                'lng' => $resturant->lng,
                 'rating' => $resturant->rating,
                 'reports' => $resturant->reports,
                 'is_bad' => $resturant->is_bad,
@@ -262,6 +278,8 @@ class ResturantsController extends Controller
                 'id' => $resturant->id,
                 'name' => $resturant->name,
                 'location' => $resturant->location,
+                'lat' => $resturant->lat,
+                'lng' => $resturant->lng,
                 'rating' => $resturant->rating,
                 'reports' => $resturant->reports,
                 'is_bad' => $resturant->is_bad,
