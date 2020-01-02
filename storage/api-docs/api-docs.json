@@ -57,6 +57,20 @@
                 }
             }
         },
+        "/api/dummydata": {
+            "post": {
+                "tags": [
+                    "Dummy Data"
+                ],
+                "description": "Create a new item image",
+                "operationId": "App\\Http\\Controllers\\DummyDataController::create",
+                "responses": {
+                    "default": {
+                        "description": "Create Dummy data for testing purposes"
+                    }
+                }
+            }
+        },
         "/api/itemimages": {
             "get": {
                 "tags": [
