@@ -252,7 +252,7 @@ class ResturantsController extends Controller
             $resturants = Resturant::where('location',$request->location)->get();
 
             if ($resturants == null || sizeof($resturants) == 0) {
-                return abort(400, 'There exists no resturants with this name.');
+                return abort(400, 'There exists no resturants with this location.');
             }
 
             $jsonResponse = [];
