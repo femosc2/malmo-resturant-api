@@ -28,7 +28,9 @@ class DummyDataController extends Controller
         $resturant_image = new ResturantImage;
 
         $resturant->name = 'Felix Resturang';
-        $resturant->location = 'Lilla Varvsgatan 41g';
+        $resturant->location = 'Lilla Varvsgatan 41g, 211 75 Malmö, Sweden';
+        $resturant->lat = 55.6141593;
+        $resturant->lng = 12.9844974;
 
         $resturant_image->image = 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80';
         $resturant_image->resturant_id = 1;
