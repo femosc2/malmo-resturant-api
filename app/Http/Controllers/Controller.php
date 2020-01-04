@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 /**
- * @OA\Info(title="Malmö Resturant Api", version="0.1")
+ * @OA\Info(title="Malmö Resturant Api", version="1.1")
  */
 class Controller extends BaseController
 {

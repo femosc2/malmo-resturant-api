@@ -9,12 +9,6 @@ use App\ApiToken;
 
 class ResturantsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
       /**
      * @OA\Get(
      *     path="/api/resturants",
@@ -38,6 +32,8 @@ class ResturantsController extends Controller
                         'id' => $resturant->id,
                         'name' => $resturant->name,
                         'location' => $resturant->location,
+                        'lat' => $resturant->lat,
+                        'lng' => $resturant->lng,
                         'rating' => $resturant->rating,
                         'reports' => $resturant->reports,
                         'is_bad' => $resturant->is_bad,
@@ -45,12 +41,6 @@ class ResturantsController extends Controller
             }
             return $jsonResponse;
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
      /**
      * @OA\Post(
@@ -113,9 +103,16 @@ class ResturantsController extends Controller
 
         $response = json_decode($response);
 
+        print_r($response->results[0]->geometry->location->lat);
+
         if (($response->results[0]->address_components[1]->long_name == 'Malmö')
             || ($response->results[0]->address_components[2]->long_name == 'Malmö')
             || ($response->results[0]->address_components[3]->long_name == 'Malmö') ) {
+
+            $resturant->location = $response->results[0]->formatted_address;
+            $resturant->lat = $response->results[0]->geometry->location->lat;
+            $resturant->lng = $response->results[0]->geometry->location->lng;
+
             $resturant->save();
 
             $jsonResponse = [];
@@ -123,6 +120,8 @@ class ResturantsController extends Controller
             array_push($jsonResponse, [
                 'name' => $resturant->name,
                 'location' => $resturant->location,
+                'lat' => $resturant->lat,
+                'lng' => $resturant->lng,
                 ]);
 
             return $jsonResponse;
@@ -131,24 +130,6 @@ class ResturantsController extends Controller
         }
 
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     /** @OA\Get(
         *     path="/api/resturants/{id}",
@@ -179,8 +160,11 @@ class ResturantsController extends Controller
         $jsonResponse = [];
 
         array_push($jsonResponse, [
+            'id' => $resturant->id,
             'name' => $resturant->name,
             'location' => $resturant->location,
+            'lat' => $resturant->lat,
+            'lng' => $resturant->lng,
             'rating' => $resturant->rating,
             'reports' => $resturant->reports,
             'is_bad' => $resturant->is_bad,
@@ -189,35 +173,92 @@ class ResturantsController extends Controller
         return $jsonResponse;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+    /** @OA\Get(
+        *     path="/api/resturants/by/name/{name}",
+        *     description="Show resturants by name",
+        *     tags={"Resturants"},
+        *     @OA\Response(response="default", description="Get resturants by name"),
+        * @OA\Parameter(
+        *         description="Name of resturant",
+        *         name="name",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function show_by_name(Request $request)
+        {
+            $resturants = Resturant::where('name',$request->name)->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+            if ($resturants == null || sizeof($resturants) == 0) {
+                return abort(400, 'There exists no resturants with this name.');
+            }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+            $jsonResponse = [];
+
+            foreach($resturants as $resturant) {
+                array_push($jsonResponse, [
+                'id' => $resturant->id,
+                'name' => $resturant->name,
+                'location' => $resturant->location,
+                'lat' => $resturant->lat,
+                'lng' => $resturant->lng,
+                'rating' => $resturant->rating,
+                'reports' => $resturant->reports,
+                'is_bad' => $resturant->is_bad,
+                ]);
+            }
+            return $jsonResponse;
+
+        }
+
+        /** @OA\Get(
+        *     path="/api/resturants/by/location/{location}",
+        *     description="Show resturants by location",
+        *     tags={"Resturants"},
+        *     @OA\Response(response="default", description="Get resturants by location"),
+        * @OA\Parameter(
+        *         description="Location of resturant",
+        *         name="location",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function show_by_location(Request $request)
+        {
+            $resturants = Resturant::where('location',$request->location)->get();
+
+            if ($resturants == null || sizeof($resturants) == 0) {
+                return abort(400, 'There exists no resturants with this location.');
+            }
+
+            $jsonResponse = [];
+
+            foreach($resturants as $resturant) {
+                array_push($jsonResponse, [
+                'id' => $resturant->id,
+                'name' => $resturant->name,
+                'location' => $resturant->location,
+                'lat' => $resturant->lat,
+                'lng' => $resturant->lng,
+                'rating' => $resturant->rating,
+                'reports' => $resturant->reports,
+                'is_bad' => $resturant->is_bad,
+                ]);
+            }
+            return $jsonResponse;
+
+        }
+
     /** @OA\Delete(
         *     path="/api/resturants/delete/{id}",
         *     description="Delete a specific resturant image",

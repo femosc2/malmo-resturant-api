@@ -9,12 +9,6 @@ use App\ApiToken;
 
 class ItemsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
       /**
      * @OA\Get(
      *     path="/api/items",
@@ -48,12 +42,6 @@ class ItemsController extends Controller
         }
         return $jsonResponse;
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
      /** @OA\Post(
      *     path="/api/items/new",
@@ -147,24 +135,6 @@ class ItemsController extends Controller
         return $jsonResponse;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
      /** @OA\Get(
         *     path="/api/items/{id}",
         *     description="Get a specific item",
@@ -207,35 +177,93 @@ class ItemsController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+     /** @OA\Get(
+        *     path="/api/items/by/name/{name}",
+        *     description="Show items by name",
+        *     tags={"Items"},
+        *     @OA\Response(response="default", description="Get items by name"),
+        * @OA\Parameter(
+        *         description="Name of item",
+        *         name="name",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function show_by_name(Request $request)
+        {
+            $items = Item::where('name',$request->name)->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+            if ($items == null || sizeof($items) == 0) {
+                return abort(400, 'There exists no items with this name.');
+            }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+            $jsonResponse = [];
+
+            foreach($items as $item) {
+                $resturant_name = Resturant::find($item->resturant_id)->name;
+                array_push($jsonResponse, [
+                'id' => $item->id,
+                'name' => $item->name,
+                'type' => $item->type,
+                'price' => $item->price,
+                'rating' => $item->rating,
+                'resturant' => $resturant_name,
+                'reports' => $item->reports,
+                'is_bad' => $item->is_bad,
+                ]);
+            }
+            return $jsonResponse;
+
+        }
+
+        /** @OA\Get(
+        *     path="/api/items/by/type/{type}",
+        *     description="Show items by type",
+        *     tags={"Items"},
+        *     @OA\Response(response="default", description="Get items by type"),
+        * @OA\Parameter(
+        *         description="Type of item",
+        *         name="type",
+        *         in="query",
+        *         required=true,
+        *         @OA\Schema(
+        *             type="string",
+        *             format="file"
+        *         ),
+        *     ),
+        * )
+        */
+        public function show_by_type(Request $request)
+        {
+            $items = Item::where('type',$request->type)->get();
+
+            if ($items == null || sizeof($items) == 0) {
+                return abort(400, 'There exists no items with this name.');
+            }
+
+            $jsonResponse = [];
+
+            foreach($items as $item) {
+                $resturant_name = Resturant::find($item->resturant_id)->name;
+                array_push($jsonResponse, [
+                'id' => $item->id,
+                'name' => $item->name,
+                'type' => $item->type,
+                'price' => $item->price,
+                'rating' => $item->rating,
+                'resturant' => $resturant_name,
+                'reports' => $item->reports,
+                'is_bad' => $item->is_bad,
+                ]);
+            }
+            return $jsonResponse;
+
+        }
 
      /** @OA\Delete(
         *     path="/api/items/delete/{id}",

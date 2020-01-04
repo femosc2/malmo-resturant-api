@@ -57,6 +57,20 @@
                 }
             }
         },
+        "/api/dummydata": {
+            "post": {
+                "tags": [
+                    "Dummy Data"
+                ],
+                "description": "Create a new item image",
+                "operationId": "App\\Http\\Controllers\\DummyDataController::create",
+                "responses": {
+                    "default": {
+                        "description": "Create Dummy data for testing purposes"
+                    }
+                }
+            }
+        },
         "/api/itemimages": {
             "get": {
                 "tags": [
@@ -577,6 +591,58 @@
                 "responses": {
                     "default": {
                         "description": "Get a specific item"
+                    }
+                }
+            }
+        },
+        "/api/items/by/name/{name}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "Show items by name",
+                "operationId": "App\\Http\\Controllers\\ItemsController::show_by_name",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of item",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get items by name"
+                    }
+                }
+            }
+        },
+        "/api/items/by/type/{type}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "description": "Show items by type",
+                "operationId": "App\\Http\\Controllers\\ItemsController::show_by_type",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type of item",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get items by type"
                     }
                 }
             }
@@ -1189,6 +1255,58 @@
                 "responses": {
                     "default": {
                         "description": "Get a specific resturant"
+                    }
+                }
+            }
+        },
+        "/api/resturants/by/name/{name}": {
+            "get": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "Show resturants by name",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::show_by_name",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get resturants by name"
+                    }
+                }
+            }
+        },
+        "/api/resturants/by/location/{location}": {
+            "get": {
+                "tags": [
+                    "Resturants"
+                ],
+                "description": "Show resturants by location",
+                "operationId": "App\\Http\\Controllers\\ResturantsController::show_by_location",
+                "parameters": [
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "description": "Location of resturant",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "file"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "description": "Get resturants by location"
                     }
                 }
             }
