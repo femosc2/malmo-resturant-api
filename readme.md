@@ -1,5 +1,5 @@
 
-#Malmö Resturant API
+# Malmö Resturant API
 
 ## About Malmö Resturant API
 
